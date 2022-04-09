@@ -1,6 +1,7 @@
 import 'package:cashew/global/global.dart';
 import 'package:cashew/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -21,9 +22,14 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Global.colors.lightIconColor,
-          titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
-                color: Global.colors.darkIconColor,
-              ),
+          // titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+          //       color: Global.colors.darkIconColor,
+          //     ),
+          titleTextStyle: GoogleFonts.barlow(
+            textStyle: Theme.of(context).textTheme.headline5,
+            fontSize: 28,
+            fontWeight: FontWeight.w500,
+          ),
           elevation: 0,
           iconTheme: IconThemeData(
             color: Global.colors.lightIconColorDarker,
