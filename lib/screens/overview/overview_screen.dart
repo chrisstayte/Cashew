@@ -19,9 +19,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
           Expanded(
             flex: 1,
             child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
               color: Colors.blue.shade300,
-              child: Center(
-                child: Text('Pie Chart'),
+              child: Container(
+                color: Colors.green.shade200,
+                child: Center(
+                  child: Text('Pie Chart'),
+                ),
               ),
             ),
           ),
@@ -32,7 +36,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
               child: Center(
                 child: IconButton(
                   icon: Icon(
-                    Icons.golf_course,
+                    Icons.list,
                     size: 25,
                   ),
                   onPressed: () =>

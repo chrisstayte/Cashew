@@ -22,9 +22,6 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Global.colors.lightIconColor,
-          // titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
-          //       color: Global.colors.darkIconColor,
-          //     ),
           titleTextStyle: GoogleFonts.barlow(
             textStyle: Theme.of(context).textTheme.headline5,
             fontSize: 28,
@@ -43,6 +40,7 @@ class MyApp extends StatelessWidget {
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
+        textTheme: GoogleFonts.barlowTextTheme(),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Global.colors.darkIconColor),
         iconTheme: IconThemeData(
