@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      themeMode: ThemeMode.light,
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Global.colors.lightIconColor,
         appBarTheme: AppBarTheme(
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
-        textTheme: GoogleFonts.barlowTextTheme(),
+        textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Global.colors.darkIconColor),
         iconTheme: IconThemeData(
