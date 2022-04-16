@@ -1,12 +1,29 @@
+import 'package:cashew/enum/bill_category.dart';
+import 'package:cashew/enum/bill_type.dart';
+import 'package:cashew/enum/occurance.dart';
 import 'package:cashew/global/global.dart';
+import 'package:cashew/models/bill.dart';
+import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
+  Hive.registerAdapter<Bill>(BillAdapter());
+  Hive.registerAdapter<BillCategory>(BillCategoryAdapter());
+  Hive.registerAdapter<BillType>(BillTypeAdapter());
+  Hive.registerAdapter<Occurance>(OccuranceAdapter());
+
   await Hive.initFlutter();
-  runApp(const MyApp());
+  await Hive.openBox<Bill>(BillProvider.BoxName);
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<BillProvider>(create: (_) => BillProvider())
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

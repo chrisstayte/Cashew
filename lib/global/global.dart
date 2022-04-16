@@ -1,3 +1,5 @@
+import 'package:cashew/enum/bill_type.dart';
+import 'package:cashew/enum/default_utilities.dart';
 import 'package:flutter/material.dart';
 
 class Global {
@@ -11,4 +13,11 @@ class _Colors {
   final darkIconColor = const Color(0XFF323031);
   late final darkIconColorLighter =
       HSLColor.fromColor(darkIconColor).withLightness(0.75).toColor();
+}
+
+class _DefaultIcons {
+  final Map<DefaultUtilities, IconData> utilityIcons = {
+    DefaultUtilities.electricity: Icons.electric_bike,
+    DefaultUtilities.gas: Icons.fire_hydrant,
+  };
 }
