@@ -21,23 +21,22 @@ class BillAdapter extends TypeAdapter<Bill> {
       dateCreated: fields[1] as DateTime,
       startDate: fields[2] as DateTime,
       repeat: fields[4] as bool,
-      cost: fields[7] as double,
-      notify: fields[11] as bool,
-      costHistory: (fields[8] as Map).cast<DateTime, double>(),
-      type: fields[12] as BillType,
-      category: fields[13] as BillCategory,
-      color: fields[10] as Color?,
-      icon: fields[9] as IconData?,
+      cost: fields[6] as double,
+      notify: fields[10] as bool,
+      costHistory: (fields[7] as Map).cast<DateTime, double>(),
+      type: fields[11] as BillType,
+      category: fields[12] as BillCategory,
+      color: fields[9] as Color?,
+      icon: fields[8] as IconData?,
       endDate: fields[3] as DateTime?,
-      occurance: fields[5] as Occurance?,
-      occuranceRate: fields[6] as int?,
+      occurrence: fields[5] as Occurrence?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Bill obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -49,22 +48,20 @@ class BillAdapter extends TypeAdapter<Bill> {
       ..writeByte(4)
       ..write(obj.repeat)
       ..writeByte(5)
-      ..write(obj.occurance)
+      ..write(obj.occurrence)
       ..writeByte(6)
-      ..write(obj.occuranceRate)
-      ..writeByte(7)
       ..write(obj.cost)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.costHistory)
-      ..writeByte(9)
+      ..writeByte(8)
       ..write(obj.icon)
-      ..writeByte(10)
+      ..writeByte(9)
       ..write(obj.color)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.notify)
-      ..writeByte(12)
+      ..writeByte(11)
       ..write(obj.type)
-      ..writeByte(13)
+      ..writeByte(12)
       ..write(obj.category);
   }
 

@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:cashew/enum/bill_category.dart';
 import 'package:cashew/enum/bill_type.dart';
+import 'package:cashew/enum/occurrence.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +45,11 @@ class BillProvider extends ChangeNotifier {
   addDummyData() {
     DateTime now = DateTime.now();
     Bill bill1 = Bill(
-      title: 'Water',
+      title: 'Water - Started One Month Before Today',
       dateCreated: now,
       startDate: DateTime(now.year, now.month - 1, now.day),
       repeat: true,
+      occurrence: Occurrence.month,
       cost: 50,
       notify: true,
       costHistory: Map<DateTime, double>(),
@@ -56,10 +58,11 @@ class BillProvider extends ChangeNotifier {
     );
 
     Bill bill2 = Bill(
-      title: 'Gas',
+      title: 'Gas - Starts Today',
       dateCreated: now,
       startDate: now,
       repeat: true,
+      occurrence: Occurrence.month,
       cost: 50,
       notify: true,
       costHistory: Map<DateTime, double>(),
@@ -68,10 +71,50 @@ class BillProvider extends ChangeNotifier {
     );
 
     Bill bill3 = Bill(
-      title: 'Netflix',
+      title: 'Netflix - Starts One Month From Today',
       dateCreated: now,
       startDate: DateTime(now.year, now.month + 1, now.day),
       repeat: true,
+      occurrence: Occurrence.month,
+      cost: 50,
+      notify: true,
+      costHistory: Map<DateTime, double>(),
+      type: BillType.subscription,
+      category: BillCategory.utility,
+    );
+
+    Bill bill4 = Bill(
+      title: 'Spotify + Starts One Month From Today, No Repeat',
+      dateCreated: now,
+      startDate: DateTime(now.year, now.month + 1, now.day),
+      repeat: false,
+      cost: 50,
+      notify: true,
+      costHistory: Map<DateTime, double>(),
+      type: BillType.subscription,
+      category: BillCategory.utility,
+    );
+
+    Bill bill5 = Bill(
+      title: 'END Date',
+      dateCreated: now,
+      startDate: DateTime(now.year, now.month + 1, now.day),
+      endDate: DateTime(now.year, now.month, now.day - 1),
+      repeat: true,
+      occurrence: Occurrence.week,
+      cost: 50,
+      notify: true,
+      costHistory: Map<DateTime, double>(),
+      type: BillType.subscription,
+      category: BillCategory.utility,
+    );
+
+    Bill sampleWorking = Bill(
+      title: 'Once A Month',
+      dateCreated: now,
+      startDate: DateTime(now.year, now.month - 1, now.day + 3),
+      repeat: true,
+      occurrence: Occurrence.month,
       cost: 50,
       notify: true,
       costHistory: Map<DateTime, double>(),
@@ -82,5 +125,8 @@ class BillProvider extends ChangeNotifier {
     addBill(bill1);
     addBill(bill2);
     addBill(bill3);
+    addBill(bill4);
+    addBill(bill5);
+    addBill(sampleWorking);
   }
 }

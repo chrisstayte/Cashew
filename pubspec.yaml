@@ -27,6 +27,7 @@ dependencies:
   fl_chart: ^0.50.1
   line_icons: ^2.0.1
   uuid: ^3.0.6
+  jiffy: ^5.0.0
 
 dev_dependencies:
   flutter_test:

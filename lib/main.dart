@@ -1,6 +1,6 @@
 import 'package:cashew/enum/bill_category.dart';
 import 'package:cashew/enum/bill_type.dart';
-import 'package:cashew/enum/occurance.dart';
+import 'package:cashew/enum/occurrence.dart';
 import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
@@ -14,7 +14,7 @@ void main() async {
   Hive.registerAdapter<Bill>(BillAdapter());
   Hive.registerAdapter<BillCategory>(BillCategoryAdapter());
   Hive.registerAdapter<BillType>(BillTypeAdapter());
-  Hive.registerAdapter<Occurance>(OccuranceAdapter());
+  Hive.registerAdapter<Occurrence>(OccurrenceAdapter());
 
   await Hive.initFlutter();
   await Hive.openBox<Bill>(BillProvider.BoxName);

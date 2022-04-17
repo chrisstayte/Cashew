@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'occurance.g.dart';
+part 'occurrence.g.dart';
 
 @HiveType(typeId: 3)
-enum Occurance {
+enum Occurrence {
   @HiveField(0)
   day,
 
@@ -14,7 +14,7 @@ enum Occurance {
   month,
 
   @HiveField(3)
-  quarter,
+  biannual,
 
   @HiveField(4)
   year

@@ -1,49 +1,49 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'occurance.dart';
+part of 'occurrence.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class OccuranceAdapter extends TypeAdapter<Occurance> {
+class OccurrenceAdapter extends TypeAdapter<Occurrence> {
   @override
   final int typeId = 3;
 
   @override
-  Occurance read(BinaryReader reader) {
+  Occurrence read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return Occurance.day;
+        return Occurrence.day;
       case 1:
-        return Occurance.week;
+        return Occurrence.week;
       case 2:
-        return Occurance.month;
+        return Occurrence.month;
       case 3:
-        return Occurance.quarter;
+        return Occurrence.biannual;
       case 4:
-        return Occurance.year;
+        return Occurrence.year;
       default:
-        return Occurance.day;
+        return Occurrence.day;
     }
   }
 
   @override
-  void write(BinaryWriter writer, Occurance obj) {
+  void write(BinaryWriter writer, Occurrence obj) {
     switch (obj) {
-      case Occurance.day:
+      case Occurrence.day:
         writer.writeByte(0);
         break;
-      case Occurance.week:
+      case Occurrence.week:
         writer.writeByte(1);
         break;
-      case Occurance.month:
+      case Occurrence.month:
         writer.writeByte(2);
         break;
-      case Occurance.quarter:
+      case Occurrence.biannual:
         writer.writeByte(3);
         break;
-      case Occurance.year:
+      case Occurrence.year:
         writer.writeByte(4);
         break;
     }
@@ -55,7 +55,7 @@ class OccuranceAdapter extends TypeAdapter<Occurance> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OccuranceAdapter &&
+      other is OccurrenceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
