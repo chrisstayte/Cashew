@@ -1,6 +1,8 @@
 import 'package:cashew/enum/bill_type.dart';
+import 'package:cashew/enum/bill_type_card_sorting_method.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
+import 'package:cashew/providers/settings_provider.dart';
 import 'package:cashew/screens/manage/widgets/bill_type_card.dart';
 import 'package:cashew/screens/manage/widgets/bill_list_item.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,10 @@ class _ManageScreenState extends State<ManageScreen> {
         title: const Text('Bills'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          context.read<SettingsProvider>().setBillTypeCardSortingMethod(
+              BillType.utility, BillTypeCardSortingMethod.alphaAscending)
+        },
         child: Icon(
           Icons.add_rounded,
         ),

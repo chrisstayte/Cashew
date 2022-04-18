@@ -1,5 +1,7 @@
 import 'package:cashew/enum/bill_type.dart';
+import 'package:cashew/enum/bill_type_card_sorting_method.dart';
 import 'package:cashew/providers/bill_provider.dart';
+import 'package:cashew/providers/settings_provider.dart';
 import 'package:cashew/screens/manage/widgets/bill_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,12 +79,21 @@ class _BillTypeCardState extends State<BillTypeCard> {
                           .bills
                           .where((element) => element.type == widget.billType)
                           .toList()
-                          .map(
+                          .map<BillListItem>(
                             (bill) => BillListItem(
                               bill: bill,
                             ),
                           )
-                          .toList(),
+                          .toList()
+                        ..sort(
+                          context
+                                      .watch<SettingsProvider>()
+                                      .getBillTypeCardSortingMethod(
+                                          widget.billType) ==
+                                  BillTypeCardSortingMethod.alphaAscending
+                              ? (a, b) => a.bill.title.compareTo(b.bill.title)
+                              : (b, a) => a.bill.title.compareTo(b.bill.title),
+                        ),
                     ),
                   ],
                 ),

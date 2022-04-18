@@ -28,6 +28,7 @@ class SettingsProvider extends ChangeNotifier {
   void setBillTypeCardSortingMethod(
       BillType billType, BillTypeCardSortingMethod value) async {
     await prefs.setString('${billType.name}SortingMethod', value.name);
+    notifyListeners();
   }
 
   bool _isDarkMode = false;
