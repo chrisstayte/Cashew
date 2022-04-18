@@ -18,10 +18,12 @@ class OccurrenceAdapter extends TypeAdapter<Occurrence> {
       case 1:
         return Occurrence.week;
       case 2:
-        return Occurrence.month;
+        return Occurrence.biweekly;
       case 3:
-        return Occurrence.biannual;
+        return Occurrence.month;
       case 4:
+        return Occurrence.biannual;
+      case 5:
         return Occurrence.year;
       default:
         return Occurrence.day;
@@ -37,14 +39,17 @@ class OccurrenceAdapter extends TypeAdapter<Occurrence> {
       case Occurrence.week:
         writer.writeByte(1);
         break;
-      case Occurrence.month:
+      case Occurrence.biweekly:
         writer.writeByte(2);
         break;
-      case Occurrence.biannual:
+      case Occurrence.month:
         writer.writeByte(3);
         break;
-      case Occurrence.year:
+      case Occurrence.biannual:
         writer.writeByte(4);
+        break;
+      case Occurrence.year:
+        writer.writeByte(5);
         break;
     }
   }

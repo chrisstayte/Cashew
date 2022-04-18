@@ -87,13 +87,13 @@ class Bill extends HiveObject {
       }
     }
 
+    Jiffy jiffy = Jiffy(startDate);
+
     // If the bill does repeat
     switch (occurrence!) {
       case Occurrence.day:
         return 'Today';
       case Occurrence.week:
-        Jiffy jiffy = Jiffy(startDate);
-
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(weeks: 1);
         }
@@ -101,9 +101,15 @@ class Bill extends HiveObject {
         if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
         return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
-      case Occurrence.month:
-        Jiffy jiffy = Jiffy(startDate);
+      case Occurrence.biweekly:
+        while (jiffy.diff(givenDate, Units.DAY) < 0) {
+          jiffy = jiffy.add(weeks: 2);
+        }
 
+        if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
+        return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+
+      case Occurrence.month:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(months: 1);
         }
@@ -112,8 +118,6 @@ class Bill extends HiveObject {
         return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
       case Occurrence.biannual:
-        Jiffy jiffy = Jiffy(startDate);
-
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(months: 6);
         }
@@ -122,8 +126,6 @@ class Bill extends HiveObject {
         return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
       case Occurrence.year:
-        Jiffy jiffy = Jiffy(startDate);
-
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(years: 1);
         }
@@ -131,8 +133,6 @@ class Bill extends HiveObject {
         if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
         return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
     }
-
-    return 'FIGURE IT OUT';
   }
 
   double getMonthlyCost(DateTime? givenDate) {

@@ -4,6 +4,7 @@ import 'package:cashew/enum/occurrence.dart';
 import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
+import 'package:cashew/providers/settings_provider.dart';
 import 'package:cashew/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,9 +19,12 @@ void main() async {
 
   await Hive.initFlutter();
   await Hive.openBox<Bill>(BillProvider.BoxName);
+
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<BillProvider>(create: (_) => BillProvider())
+      ChangeNotifierProvider<BillProvider>(create: (_) => BillProvider()),
+      ChangeNotifierProvider<SettingsProvider>(
+          create: (_) => SettingsProvider())
     ],
     child: const MyApp(),
   ));
@@ -33,18 +37,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      themeMode: ThemeMode.light,
+      title: 'Cashew',
+      themeMode: context.watch<SettingsProvider>().isDarkMode
+          ? ThemeMode.dark
+          : ThemeMode.light,
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Global.colors.lightIconColor,
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Global.colors.lightIconColor,
-          titleTextStyle: GoogleFonts.barlow(
-            textStyle: Theme.of(context).textTheme.headline5,
-            fontSize: 28,
-            fontWeight: FontWeight.w500,
-          ),
+          titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+                color: Global.colors.darkIconColor,
+              ),
+          // titleTextStyle: GoogleFonts.barlow(
+          //   textStyle: Theme.of(context).textTheme.headline5,
+          //   fontSize: 28,
+          //   fontWeight: FontWeight.w500,
+          // ),
           elevation: 0,
           iconTheme: IconThemeData(
             color: Global.colors.lightIconColorDarker,
@@ -58,7 +67,7 @@ class MyApp extends StatelessWidget {
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
-        textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
+        // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Global.colors.darkIconColor),
         iconTheme: IconThemeData(
@@ -66,6 +75,40 @@ class MyApp extends StatelessWidget {
         ),
         chipTheme: ChipThemeData(
           backgroundColor: Global.colors.lightIconColor,
+        ),
+      ),
+      darkTheme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Global.colors.darkIconColor,
+        appBarTheme: AppBarTheme(
+          centerTitle: false,
+          color: Global.colors.darkIconColor,
+          // titleTextStyle: GoogleFonts.barlow(
+          //   textStyle: Theme.of(context).textTheme.headline5,
+          //   fontSize: 28,
+          //   fontWeight: FontWeight.w500,
+          // ),
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Global.colors.lightIconColorDarker,
+          ),
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          elevation: 0,
+          backgroundColor: Global.colors.darkIconColor,
+          selectedItemColor: Global.colors.lightIconColor,
+          unselectedItemColor: Global.colors.darkIconColorLighter,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
+        ),
+        // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Global.colors.lightIconColor,
+        ),
+        iconTheme: IconThemeData(
+          color: Global.colors.lightIconColor,
+        ),
+        chipTheme: ChipThemeData(
+          backgroundColor: Global.colors.darkIconColor,
         ),
       ),
       home: const HomeScreen(),

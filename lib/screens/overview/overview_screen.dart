@@ -12,7 +12,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cashew'),
+        title: const Text('Monthly Nut'),
       ),
       body: Column(
         children: [

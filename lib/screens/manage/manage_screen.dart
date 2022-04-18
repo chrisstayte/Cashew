@@ -2,7 +2,7 @@ import 'package:cashew/enum/bill_type.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/screens/manage/widgets/bill_type_card.dart';
-import 'package:cashew/screens/manage/widgets/payment_list_item.dart';
+import 'package:cashew/screens/manage/widgets/bill_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +39,7 @@ class _ManageScreenState extends State<ManageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Manage'),
+        title: const Text('Bills'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {},
@@ -49,9 +49,18 @@ class _ManageScreenState extends State<ManageScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: _billCards,
-        ),
+        child: context.watch<BillProvider>().bills.length == 0
+            ? Center(
+                child: Text(
+                'No Bills Added',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w800,
+                ),
+              ))
+            : ListView(
+                children: _billCards,
+              ),
       ),
     );
   }

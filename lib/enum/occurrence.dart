@@ -11,11 +11,14 @@ enum Occurrence {
   week,
 
   @HiveField(2)
-  month,
+  biweekly,
 
   @HiveField(3)
-  biannual,
+  month,
 
   @HiveField(4)
+  biannual,
+
+  @HiveField(5)
   year
 }

@@ -1,6 +1,7 @@
 import 'package:cashew/screens/calculate/calculate_root.dart';
 import 'package:cashew/screens/manage/manage_root.dart';
 import 'package:cashew/screens/overview/overview_root.dart';
+import 'package:cashew/screens/settings/settings_root.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,7 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<GlobalKey<NavigatorState>> keys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>()
+    GlobalKey<NavigatorState>(),
+    // GlobalKey<NavigatorState>()
   ];
 
   @override
@@ -32,15 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          CalculateRoot(
+          ManageRoot(
             navigatorKey: keys[0],
           ),
           OverviewRoot(
             navigatorKey: keys[1],
           ),
-          ManageRoot(
+          SettingsRoot(
             navigatorKey: keys[2],
-          ),
+          )
+          // CalculateRoot(
+          //   navigatorKey: keys[3],
+          // ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -59,17 +64,21 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            label: 'Settings',
-            icon: FaIcon(FontAwesomeIcons.calculator),
+            label: 'Manage',
+            icon: FaIcon(FontAwesomeIcons.barsProgress),
           ),
           BottomNavigationBarItem(
             label: 'Home',
             icon: Icon(Icons.donut_large),
           ),
           BottomNavigationBarItem(
-            label: 'Manage',
-            icon: FaIcon(FontAwesomeIcons.barsProgress),
-          ),
+            label: 'Settings',
+            icon: Icon(Icons.settings),
+          )
+          // BottomNavigationBarItem(
+          //   label: 'Calculate',
+          //   icon: FaIcon(FontAwesomeIcons.calculator),
+          // ),
         ],
       ),
     );
