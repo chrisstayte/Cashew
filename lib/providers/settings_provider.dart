@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  late SharedPreferences prefs;
+  SharedPreferences? prefs;
 
   SettingsProvider() {
     setup();
@@ -14,20 +14,20 @@ class SettingsProvider extends ChangeNotifier {
   void setup() async {
     prefs = await SharedPreferences.getInstance();
 
-    _isDarkMode = prefs.getBool('isDarkMode') ?? false;
+    _isDarkMode = prefs?.getBool('isDarkMode') ?? false;
 
     notifyListeners();
   }
 
   BillTypeCardSortingMethod getBillTypeCardSortingMethod(BillType billType) {
     return BillTypeCardSortingMethod.values.byName(
-        prefs.getString('${billType.name}SortingMethod') ??
+        prefs?.getString('${billType.name}SortingMethod') ??
             BillTypeCardSortingMethod.dateCreatedAscending.name);
   }
 
   void setBillTypeCardSortingMethod(
       BillType billType, BillTypeCardSortingMethod value) async {
-    await prefs.setString('${billType.name}SortingMethod', value.name);
+    await prefs?.setString('${billType.name}SortingMethod', value.name);
     notifyListeners();
   }
 
@@ -36,7 +36,7 @@ class SettingsProvider extends ChangeNotifier {
 
   void setIsDarkMode(bool value) async {
     _isDarkMode = value;
-    await prefs.setBool('isDarkMode', value);
+    await prefs?.setBool('isDarkMode', value);
     notifyListeners();
   }
 }

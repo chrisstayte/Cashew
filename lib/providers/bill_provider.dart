@@ -50,7 +50,7 @@ class BillProvider extends ChangeNotifier {
       startDate: DateTime(now.year, now.month - 1, now.day),
       repeat: true,
       occurrence: Occurrence.month,
-      cost: 50,
+      cost: 5,
       notify: true,
       costHistory: Map<DateTime, double>(),
       type: BillType.utility,
@@ -76,7 +76,7 @@ class BillProvider extends ChangeNotifier {
       startDate: DateTime(now.year, now.month + 1, now.day),
       repeat: true,
       occurrence: Occurrence.month,
-      cost: 50,
+      cost: 150,
       notify: true,
       costHistory: Map<DateTime, double>(),
       type: BillType.subscription,
@@ -102,10 +102,38 @@ class BillProvider extends ChangeNotifier {
       endDate: DateTime(now.year, now.month, now.day - 1),
       repeat: true,
       occurrence: Occurrence.week,
-      cost: 50,
+      cost: 550,
       notify: true,
       costHistory: Map<DateTime, double>(),
       type: BillType.subscription,
+      category: BillCategory.utility,
+    );
+
+    Bill bill6 = Bill(
+      title: 'END D44ate',
+      dateCreated: now,
+      startDate: DateTime(now.year, now.month + 1, now.day),
+      endDate: DateTime(now.year, now.month, now.day - 1),
+      repeat: true,
+      occurrence: Occurrence.week,
+      cost: 550,
+      notify: true,
+      costHistory: Map<DateTime, double>(),
+      type: BillType.financed,
+      category: BillCategory.utility,
+    );
+
+    Bill bill7 = Bill(
+      title: 'END 4324Date',
+      dateCreated: now,
+      startDate: DateTime(now.year, now.month + 1, now.day),
+      endDate: DateTime(now.year, now.month, now.day - 1),
+      repeat: true,
+      occurrence: Occurrence.week,
+      cost: 50,
+      notify: true,
+      costHistory: Map<DateTime, double>(),
+      type: BillType.financed,
       category: BillCategory.utility,
     );
 
@@ -115,7 +143,7 @@ class BillProvider extends ChangeNotifier {
       startDate: DateTime(now.year, now.month - 1, now.day + 3),
       repeat: true,
       occurrence: Occurrence.month,
-      cost: 50,
+      cost: 540,
       notify: true,
       costHistory: Map<DateTime, double>(),
       type: BillType.subscription,
@@ -127,6 +155,8 @@ class BillProvider extends ChangeNotifier {
     addBill(bill3);
     addBill(bill4);
     addBill(bill5);
+    addBill(bill6);
+    addBill(bill7);
     addBill(sampleWorking);
   }
 }

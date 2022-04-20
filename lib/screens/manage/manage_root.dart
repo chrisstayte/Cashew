@@ -1,3 +1,4 @@
+import 'package:cashew/screens/manage/add_bill_screen.dart';
 import 'package:cashew/screens/manage/manage_screen.dart';
 import 'package:cashew/screens/manage/section_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class ManageRoot extends StatelessWidget {
               case '/section':
                 String title = settings.arguments as String;
                 return SectionScreen(title: title);
+              case '/addBill':
+                return AddBillScreen();
               default:
                 throw Exception('Invalid route: ${settings.name}');
             }

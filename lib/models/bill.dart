@@ -65,25 +65,26 @@ class Bill extends HiveObject {
     this.occurrence,
   });
 
-  String getNextPaymentDate({DateTime? givenDate}) {
+  DateTime? getNextPaymentDate({DateTime? givenDate}) {
     givenDate = givenDate ?? DateTime.now();
 
     // If the bills start date is today, just return 'Today'
     if (givenDate.difference(startDate).inDays == 0) {
-      return 'Today';
+      return givenDate;
     }
 
     // If we have passed the end date, just return 'Not due'
     if (endDate != null) {
       if (givenDate.difference(endDate!).inDays > 0) {
-        return 'Not due';
+        return null;
       }
     }
 
     // If the bill does not repeat but has not been hit yet return start date
     if (!repeat) {
       if (givenDate.difference(startDate).inDays < 0) {
-        return '${startDate.month}/${startDate.day}/${startDate.year}';
+        return startDate;
+        //return '${startDate.month}/${startDate.day}/${startDate.year}';
       }
     }
 
@@ -92,46 +93,51 @@ class Bill extends HiveObject {
     // If the bill does repeat
     switch (occurrence!) {
       case Occurrence.day:
-        return 'Today';
+        return givenDate;
       case Occurrence.week:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(weeks: 1);
         }
 
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
-        return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+        return jiffy.dateTime;
+      //return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
       case Occurrence.biweekly:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(weeks: 2);
         }
 
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
-        return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+        return jiffy.dateTime;
+      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
       case Occurrence.month:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(months: 1);
         }
 
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
-        return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+        return jiffy.dateTime;
+      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
       case Occurrence.biannual:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(months: 6);
         }
 
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
-        return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+        return jiffy.dateTime;
+      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
 
       case Occurrence.year:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(years: 1);
         }
 
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return 'Today';
-        return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+        return jiffy.dateTime;
+      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
     }
   }
 

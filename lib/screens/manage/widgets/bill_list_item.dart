@@ -13,6 +13,7 @@ class BillListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime? nextPaymentDate = bill.getNextPaymentDate();
     return Padding(
       padding: EdgeInsets.only(top: 15),
       child: GestureDetector(
@@ -53,7 +54,9 @@ class BillListItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  bill.getNextPaymentDate(),
+                  nextPaymentDate == null
+                      ? 'Not Due'
+                      : '${nextPaymentDate.month}/${nextPaymentDate.day}/${nextPaymentDate.year}',
                 ),
               ],
             ),

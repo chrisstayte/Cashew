@@ -22,9 +22,9 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<BillProvider>(create: (_) => BillProvider()),
       ChangeNotifierProvider<SettingsProvider>(
-          create: (_) => SettingsProvider())
+          create: (_) => SettingsProvider(), lazy: false),
+      ChangeNotifierProvider<BillProvider>(create: (_) => BillProvider()),
     ],
     child: const MyApp(),
   ));
@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
             color: Global.colors.lightIconColorDarker,
           ),
         ),
+        dividerColor: Global.colors.darkIconColor,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
           backgroundColor: Global.colors.lightIconColor,
@@ -73,9 +74,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Global.colors.darkIconColor,
         ),
-        chipTheme: ChipThemeData(
-          backgroundColor: Global.colors.lightIconColor,
-        ),
+
+        // chipTheme: ChipThemeData(
+        //   backgroundColor: Global.colors.darkIconColor,
+        //   selectedColor: Global.colors.darkIconColorLighter,
+        //   labelStyle: TextStyle(color: Colors.white),
+        // ),
       ),
       darkTheme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Global.colors.darkIconColor,
@@ -92,6 +96,7 @@ class MyApp extends StatelessWidget {
             color: Global.colors.lightIconColorDarker,
           ),
         ),
+        dividerColor: Global.colors.lightIconColor,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0,
           backgroundColor: Global.colors.darkIconColor,
@@ -107,9 +112,9 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Global.colors.lightIconColor,
         ),
-        chipTheme: ChipThemeData(
-          backgroundColor: Global.colors.darkIconColor,
-        ),
+        // chipTheme: ChipThemeData(
+        //   backgroundColor: Global.colors.darkIconColor,
+        // ),
       ),
       home: const HomeScreen(),
     );

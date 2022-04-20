@@ -44,10 +44,7 @@ class _ManageScreenState extends State<ManageScreen> {
         title: const Text('Bills'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-          context.read<SettingsProvider>().setBillTypeCardSortingMethod(
-              BillType.utility, BillTypeCardSortingMethod.alphaAscending)
-        },
+        onPressed: () async => await Navigator.pushNamed(context, '/addBill'),
         child: Icon(
           Icons.add_rounded,
         ),
@@ -57,12 +54,12 @@ class _ManageScreenState extends State<ManageScreen> {
         child: context.watch<BillProvider>().bills.length == 0
             ? Center(
                 child: Text(
-                'No Bills Added',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w800,
+                  'No Bills Added',
+                  style: TextStyle(
+                    fontSize: 19,
+                  ),
                 ),
-              ))
+              )
             : ListView(
                 children: _billCards,
               ),

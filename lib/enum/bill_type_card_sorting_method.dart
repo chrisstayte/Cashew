@@ -1,11 +1,11 @@
 enum BillTypeCardSortingMethod {
-  alphaAscending,
-  alphaDescending,
+  titleAscending,
+  titleDescending,
   costAscending,
   costDescending,
   nextDueDateAscending,
   nextDueDateDescending,
   dateCreatedAscending,
   dateCreatedDescending,
-  category
+  category,
 }
