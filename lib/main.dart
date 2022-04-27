@@ -37,6 +37,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      showSemanticsDebugger: false,
       title: 'Cashew',
       themeMode: context.watch<SettingsProvider>().isDarkMode
           ? ThemeMode.dark
@@ -74,12 +76,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Global.colors.darkIconColor,
         ),
-
-        // chipTheme: ChipThemeData(
-        //   backgroundColor: Global.colors.darkIconColor,
-        //   selectedColor: Global.colors.darkIconColorLighter,
-        //   labelStyle: TextStyle(color: Colors.white),
-        // ),
+        chipTheme: ChipThemeData(
+          backgroundColor: Global.colors.darkIconColorLighter,
+          selectedColor: Global.colors.darkIconColor,
+          labelStyle: const TextStyle(color: Colors.black),
+          secondaryLabelStyle: const TextStyle(color: Colors.white),
+        ),
       ),
       darkTheme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Global.colors.darkIconColor,
@@ -112,9 +114,12 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Global.colors.lightIconColor,
         ),
-        // chipTheme: ChipThemeData(
-        //   backgroundColor: Global.colors.darkIconColor,
-        // ),
+        chipTheme: ChipThemeData(
+          backgroundColor: Global.colors.darkIconColorLighter,
+          selectedColor: Global.colors.lightIconColorDarker,
+          labelStyle: const TextStyle(color: Colors.black),
+          secondaryLabelStyle: const TextStyle(color: Colors.white),
+        ),
       ),
       home: const HomeScreen(),
     );

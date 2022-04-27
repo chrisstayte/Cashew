@@ -4,6 +4,7 @@ import 'package:cashew/global/global.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';
 import 'package:cashew/screens/manage/widgets/bill_list_item.dart';
+import 'package:cashew/utilities/double_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -249,7 +250,7 @@ class _BillTypeCardState extends State<BillTypeCard> {
                         // )
                       ],
                     ),
-                    Text('\$${GetTotalCost()}'),
+                    Text('\$${GetTotalCost().currency}'),
                     Divider(),
                     Column(
                         children: (context

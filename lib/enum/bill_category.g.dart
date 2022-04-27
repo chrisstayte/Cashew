@@ -25,6 +25,22 @@ class BillCategoryAdapter extends TypeAdapter<BillCategory> {
         return BillCategory.rent;
       case 5:
         return BillCategory.mortgage;
+      case 6:
+        return BillCategory.healthCare;
+      case 7:
+        return BillCategory.studenLoan;
+      case 8:
+        return BillCategory.gym;
+      case 9:
+        return BillCategory.sports;
+      case 10:
+        return BillCategory.food;
+      case 11:
+        return BillCategory.insurance;
+      case 12:
+        return BillCategory.telephone;
+      case 13:
+        return BillCategory.parking;
       default:
         return BillCategory.general;
     }
@@ -50,6 +66,30 @@ class BillCategoryAdapter extends TypeAdapter<BillCategory> {
         break;
       case BillCategory.mortgage:
         writer.writeByte(5);
+        break;
+      case BillCategory.healthCare:
+        writer.writeByte(6);
+        break;
+      case BillCategory.studenLoan:
+        writer.writeByte(7);
+        break;
+      case BillCategory.gym:
+        writer.writeByte(8);
+        break;
+      case BillCategory.sports:
+        writer.writeByte(9);
+        break;
+      case BillCategory.food:
+        writer.writeByte(10);
+        break;
+      case BillCategory.insurance:
+        writer.writeByte(11);
+        break;
+      case BillCategory.telephone:
+        writer.writeByte(12);
+        break;
+      case BillCategory.parking:
+        writer.writeByte(13);
         break;
     }
   }

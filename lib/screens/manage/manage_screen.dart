@@ -44,7 +44,10 @@ class _ManageScreenState extends State<ManageScreen> {
         title: const Text('Bills'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async => await Navigator.pushNamed(context, '/addBill'),
+        onPressed: () async {
+          //context.read<BillProvider>().addDummyData();
+          await Navigator.pushNamed(context, '/addBill');
+        },
         child: Icon(
           Icons.add_rounded,
         ),

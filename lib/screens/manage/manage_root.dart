@@ -1,6 +1,7 @@
+import 'package:cashew/models/bill.dart';
 import 'package:cashew/screens/manage/add_bill_screen.dart';
+import 'package:cashew/screens/manage/bill_screen.dart';
 import 'package:cashew/screens/manage/manage_screen.dart';
-import 'package:cashew/screens/manage/section_screen.dart';
 import 'package:flutter/material.dart';
 
 class ManageRoot extends StatelessWidget {
@@ -19,9 +20,9 @@ class ManageRoot extends StatelessWidget {
             switch (settings.name) {
               case '/':
                 return const ManageScreen();
-              case '/section':
-                String title = settings.arguments as String;
-                return SectionScreen(title: title);
+              case '/bill':
+                Bill bill = settings.arguments as Bill;
+                return BillScreen(bill: bill);
               case '/addBill':
                 return AddBillScreen();
               default:

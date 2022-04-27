@@ -20,5 +20,29 @@ enum BillCategory {
   rent,
 
   @HiveField(5)
-  mortgage
+  mortgage,
+
+  @HiveField(6)
+  healthCare,
+
+  @HiveField(7)
+  studenLoan,
+
+  @HiveField(8)
+  gym,
+
+  @HiveField(9)
+  sports,
+
+  @HiveField(10)
+  food,
+
+  @HiveField(11)
+  insurance,
+
+  @HiveField(12)
+  telephone,
+
+  @HiveField(13)
+  parking,
 }

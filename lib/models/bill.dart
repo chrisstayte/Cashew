@@ -32,7 +32,7 @@ class Bill extends HiveObject {
   double cost;
 
   @HiveField(7)
-  Map<DateTime, double> costHistory;
+  Map<DateTime, double>? costHistory;
 
   @HiveField(8)
   IconData? icon;
@@ -56,9 +56,9 @@ class Bill extends HiveObject {
     required this.repeat,
     required this.cost,
     required this.notify,
-    required this.costHistory,
     required this.type,
     required this.category,
+    this.costHistory,
     this.color,
     this.icon,
     this.endDate,
@@ -85,6 +85,8 @@ class Bill extends HiveObject {
       if (givenDate.difference(startDate).inDays < 0) {
         return startDate;
         //return '${startDate.month}/${startDate.day}/${startDate.year}';
+      } else {
+        return null;
       }
     }
 
@@ -98,51 +100,62 @@ class Bill extends HiveObject {
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(weeks: 1);
         }
-
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
-        return jiffy.dateTime;
-      //return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
-
+        break;
       case Occurrence.biweekly:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(weeks: 2);
         }
-
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
-        return jiffy.dateTime;
-      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
-
+        break;
       case Occurrence.month:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(months: 1);
         }
-
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
-        return jiffy.dateTime;
-      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
-
+        break;
       case Occurrence.biannual:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(months: 6);
         }
-
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
-        return jiffy.dateTime;
-      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
-
+        break;
       case Occurrence.year:
         while (jiffy.diff(givenDate, Units.DAY) < 0) {
           jiffy = jiffy.add(years: 1);
         }
-
-        if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
-        return jiffy.dateTime;
-      // return '${jiffy.month}/${jiffy.date}/${jiffy.year}';
+        break;
     }
+
+    if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+    return jiffy.dateTime;
   }
 
   double getMonthlyCost(DateTime? givenDate) {
     givenDate = givenDate ?? DateTime.now();
+
+    if (repeat) {
+      double calculateCost = 0;
+      Jiffy jiffy = Jiffy(startDate);
+      switch (occurrence!) {
+        case Occurrence.day:
+          while (jiffy.diff(input)) break;
+        case Occurrence.week:
+          // TODO: Handle this case.
+          break;
+        case Occurrence.biweekly:
+          // TODO: Handle this case.
+          break;
+        case Occurrence.month:
+          // TODO: Handle this case.
+          break;
+        case Occurrence.biannual:
+          // TODO: Handle this case.
+          break;
+        case Occurrence.year:
+          // TODO: Handle this case.
+          break;
+      }
+    } else {
+      if (givenDate.month == startDate.month &&
+          givenDate.year == givenDate.year) return cost;
+    }
 
     // If it has an end date and we are past it, then return '0'
     if (endDate != null) {

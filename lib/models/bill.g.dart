@@ -23,7 +23,7 @@ class BillAdapter extends TypeAdapter<Bill> {
       repeat: fields[4] as bool,
       cost: fields[6] as double,
       notify: fields[10] as bool,
-      costHistory: (fields[7] as Map).cast<DateTime, double>(),
+      costHistory: (fields[7] as Map?)?.cast<DateTime, double>(),
       type: fields[11] as BillType,
       category: fields[12] as BillCategory,
       color: fields[9] as Color?,

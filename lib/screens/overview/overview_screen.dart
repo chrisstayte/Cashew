@@ -1,5 +1,6 @@
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class OverviewScreen extends StatefulWidget {
 class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
+    DateTime currentDateTime = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         title: context.watch<BillProvider>().bills.length == 0
@@ -22,8 +24,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
-                Padding(
+                const Spacer(),
+                const Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Text(
                     'This app will help you better understand exactly how much money you are spending on bills each month\n\n\nStart by adding some bills below',
@@ -33,14 +35,15 @@ class _OverviewScreenState extends State<OverviewScreen> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
-                  children: [
+                  children: const [
                     Expanded(
-                        child: Icon(
-                      Icons.arrow_downward_rounded,
-                      size: 36,
-                    )),
+                      child: Icon(
+                        Icons.arrow_downward_rounded,
+                        size: 36,
+                      ),
+                    ),
                     Spacer(
                       flex: 1,
                     ),
@@ -53,6 +56,15 @@ class _OverviewScreenState extends State<OverviewScreen> {
             )
           : Column(
               children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: Text(
+                      '${DateFormat(DateFormat.MONTH).format(currentDateTime)} ${currentDateTime.year}',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                ),
                 Expanded(
                   flex: 1,
                   child: Container(
