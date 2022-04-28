@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cashew/global/global.dart';
 import 'package:flutter/material.dart';
 
@@ -16,39 +17,40 @@ class BillInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Card(
-      // decoration: BoxDecoration(
-      //   color: Theme.of(context).cardColor,
-      //   borderRadius: BorderRadius.circular(25),
-      // ),
-      child: Column(children: [
-        Expanded(
-          child: Container(
-            child: Center(
-              child: Text(
-                content,
-                style: Theme.of(context).textTheme.headline5,
+      child: Card(
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Center(
+                  child: AutoSizeText(
+                    content,
+                    style: const TextStyle(fontSize: 36),
+                    maxLines: 1,
+                  ),
+                ),
               ),
             ),
-          ),
+            Container(
+              height: 45,
+              decoration: BoxDecoration(
+                color: Global.colors.lightIconColorDarker,
+              ),
+              child: Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
-        Container(
-          height: 45,
-          decoration: BoxDecoration(
-            color: Global.colors.lightIconColorDarker,
-          ),
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        )
-      ]),
-    ));
+      ),
+    );
   }
 }

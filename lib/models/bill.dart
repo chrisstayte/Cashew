@@ -1,7 +1,8 @@
+import 'dart:collection';
+
 import 'package:cashew/enum/bill_category.dart';
 import 'package:cashew/enum/bill_type.dart';
 import 'package:cashew/enum/occurrence.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:jiffy/jiffy.dart';
@@ -127,53 +128,117 @@ class Bill extends HiveObject {
     return jiffy.dateTime;
   }
 
-  double getMonthlyCost(DateTime? givenDate) {
+  double getMonthlyCost({DateTime? givenDate}) {
     givenDate = givenDate ?? DateTime.now();
 
-    if (repeat) {
-      double calculateCost = 0;
-      Jiffy jiffy = Jiffy(startDate);
-      switch (occurrence!) {
-        case Occurrence.day:
-          while (jiffy.diff(input)) break;
-        case Occurrence.week:
-          // TODO: Handle this case.
-          break;
-        case Occurrence.biweekly:
-          // TODO: Handle this case.
-          break;
-        case Occurrence.month:
-          // TODO: Handle this case.
-          break;
-        case Occurrence.biannual:
-          // TODO: Handle this case.
-          break;
-        case Occurrence.year:
-          // TODO: Handle this case.
-          break;
-      }
-    } else {
-      if (givenDate.month == startDate.month &&
-          givenDate.year == givenDate.year) return cost;
+    // If it has not yet hit the start date then return zero
+    if (startDate.year > givenDate.year) {
+      return 0.0;
+    } else if (startDate.year == givenDate.year &&
+        startDate.month > givenDate.month) {
+      return 0.0;
     }
 
     // If it has an end date and we are past it, then return '0'
     if (endDate != null) {
-      // 2020 > 2019
-      if (givenDate.year > endDate!.year) {
-        // 12 > 11 (December > November)
-        if (givenDate.month > endDate!.month) {
-          return 0.0;
-        }
+      if (endDate!.year < givenDate.year) {
+        return 0.0;
+      } else if (endDate!.year == givenDate.year &&
+          endDate!.month < givenDate.month) {
+        return 0.0;
       }
     }
 
-    // If only occurs once then make sure it's in this month and then return that value
-    if (!repeat) {
-      if (givenDate.year == startDate.year &&
-          givenDate.month == startDate.month) {
-        return cost;
+    if (repeat) {
+      Jiffy windowStart;
+      if (startDate.year < givenDate.year) {
+        windowStart = Jiffy(givenDate).startOf(Units.MONTH);
+      } else if (startDate.month < givenDate.month) {
+        windowStart = Jiffy(givenDate).startOf(Units.MONTH);
+      } else {
+        windowStart = Jiffy(startDate);
       }
+
+      Jiffy windowEnd;
+      if (endDate == null) {
+        windowEnd = Jiffy(givenDate).endOf(Units.MONTH);
+      } else {
+        if (endDate!.year > givenDate.year) {
+          windowEnd = Jiffy(givenDate).endOf(Units.MONTH);
+        } else if (endDate!.month > givenDate.month) {
+          windowEnd = Jiffy(givenDate).endOf(Units.MONTH);
+        } else {
+          windowEnd = Jiffy(endDate!);
+        }
+      }
+
+      Jiffy currentDate = Jiffy(startDate);
+      List<Jiffy> validBillableDatesThisMonth = <Jiffy>[];
+
+      switch (occurrence!) {
+        case Occurrence.day:
+          while (currentDate.isBefore(windowStart) ||
+              currentDate.isSame(windowStart) ||
+              currentDate.isSame(windowEnd) ||
+              currentDate.isBetween(windowStart, windowEnd)) {
+            if (currentDate.isSame(windowStart) ||
+                currentDate.isBetween(windowStart, windowEnd) ||
+                currentDate.isSame(windowEnd)) {
+              validBillableDatesThisMonth.add(currentDate);
+            }
+            currentDate = currentDate.add(days: 1);
+          }
+          break;
+        case Occurrence.week:
+          while (currentDate.isBefore(windowStart) ||
+              currentDate.isSame(windowStart) ||
+              currentDate.isSame(windowEnd) ||
+              currentDate.isBetween(windowStart, windowEnd)) {
+            if (currentDate.isSame(windowStart) ||
+                currentDate.isBetween(windowStart, windowEnd) ||
+                currentDate.isSame(windowEnd)) {
+              validBillableDatesThisMonth.add(currentDate);
+            }
+            currentDate = currentDate.add(weeks: 1);
+          }
+          break;
+        case Occurrence.biweekly:
+          while (currentDate.isBefore(windowStart) ||
+              currentDate.isSame(windowStart) ||
+              currentDate.isSame(windowEnd) ||
+              currentDate.isBetween(windowStart, windowEnd)) {
+            if (currentDate.isSame(windowStart) ||
+                currentDate.isBetween(windowStart, windowEnd) ||
+                currentDate.isSame(windowEnd)) {
+              validBillableDatesThisMonth.add(currentDate);
+            }
+            currentDate = currentDate.add(weeks: 2);
+          }
+          break;
+        case Occurrence.month:
+          while (currentDate.isBefore(windowStart) ||
+              currentDate.isSame(windowStart) ||
+              currentDate.isSame(windowEnd) ||
+              currentDate.isBetween(windowStart, windowEnd)) {
+            if (currentDate.isSame(windowStart) ||
+                currentDate.isBetween(windowStart, windowEnd) ||
+                currentDate.isSame(windowEnd)) {
+              validBillableDatesThisMonth.add(currentDate);
+            }
+            currentDate = currentDate.add(months: 1);
+          }
+          break;
+        case Occurrence.biannual:
+          return (cost / 6.0);
+        case Occurrence.year:
+          return (cost / 12.0);
+      }
+
+      return (cost * validBillableDatesThisMonth.length);
+    } else {
+      // If only occurs once then make sure it's in this month and then return that value
+      if (givenDate.month == startDate.month &&
+          givenDate.year == givenDate.year) return cost;
     }
 
     return 0.0;

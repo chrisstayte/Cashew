@@ -40,6 +40,8 @@ class BillListItem extends StatelessWidget {
                 maxLines: 3,
                 style: TextStyle(fontWeight: FontWeight.bold),
               )),
+              SizedBox(width: 10),
+              Text(bill.getMonthlyCost().currency),
               SizedBox(
                 width: 10,
               ),
