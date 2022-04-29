@@ -49,7 +49,7 @@ class BillInfoCard extends StatelessWidget {
               Container(
                 height: 45,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(13.0),
                     bottomLeft: Radius.circular(13.0),
                   ),

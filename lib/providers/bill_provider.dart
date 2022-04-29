@@ -24,9 +24,14 @@ class BillProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  addBill(Bill bill) async {
+  createBill(Bill bill) async {
     box.add(bill);
     _bills.add(bill);
+    notifyListeners();
+  }
+
+  updateBill(Bill bill) async {
+    bill.save();
     notifyListeners();
   }
 
@@ -150,13 +155,13 @@ class BillProvider extends ChangeNotifier {
       category: BillCategory.utility,
     );
 
-    addBill(bill1);
-    addBill(bill2);
-    addBill(bill3);
-    addBill(bill4);
-    addBill(bill5);
-    addBill(bill6);
-    addBill(bill7);
-    addBill(sampleWorking);
+    createBill(bill1);
+    createBill(bill2);
+    createBill(bill3);
+    createBill(bill4);
+    createBill(bill5);
+    createBill(bill6);
+    createBill(bill7);
+    createBill(sampleWorking);
   }
 }

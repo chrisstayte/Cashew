@@ -1,45 +1,39 @@
 import 'package:cashew/enum/bill_category.dart';
 import 'package:cashew/enum/bill_type.dart';
 import 'package:cashew/enum/occurrence.dart';
-import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class AddBillScreen extends StatefulWidget {
-  const AddBillScreen({Key? key}) : super(key: key);
+class EditBillScreen extends StatefulWidget {
+  const EditBillScreen({Key? key, required this.existingBill})
+      : super(key: key);
+
+  final Bill existingBill;
 
   @override
-  State<AddBillScreen> createState() => _AddBillScreenState();
+  State<EditBillScreen> createState() => _EditBillScreenState();
 }
 
-// TODO: Need to verify end date is after start date
-class _AddBillScreenState extends State<AddBillScreen> {
-  FocusNode _focusNode = new FocusNode();
-
+class _EditBillScreenState extends State<EditBillScreen> {
   TextEditingController _costController = TextEditingController();
   TextEditingController _titleController = TextEditingController();
 
-  BillType _billType = BillType.subscription;
-  DateTime? _dueDate;
-  DateTime? _endDate;
-  BillCategory _category = BillCategory.general;
-  Occurrence _occurrence = Occurrence.month;
-  bool _repeat = false;
-  bool _stop = false;
-  // bool _notify = false;
+  late BillType _billType = widget.existingBill.type;
+  late DateTime _dueDate = widget.existingBill.startDate;
+  late BillCategory _category = widget.existingBill.category;
+  late Occurrence _occurrence =
+      widget.existingBill.occurrence ?? Occurrence.month;
+  late bool _repeat = widget.existingBill.repeat;
 
   @override
   void initState() {
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-      } else {}
-    });
+    _costController.text = widget.existingBill.cost.toString();
+    _titleController.text = widget.existingBill.title;
 
     super.initState();
   }
@@ -48,11 +42,11 @@ class _AddBillScreenState extends State<AddBillScreen> {
   void dispose() {
     _costController.dispose();
     _titleController.dispose();
-    _focusNode.dispose();
+    //_focusNode.dispose();
     super.dispose();
   }
 
-  void _addBill() {
+  void _udpateBill() {
     if (_costController.text.isEmpty) {
       var snackBar = const SnackBar(
         content: Text('Bill requires a cost above 0'),
@@ -91,33 +85,20 @@ class _AddBillScreenState extends State<AddBillScreen> {
       billCategory = _category;
     }
 
-    if (_dueDate == null) {
-      var snackBar = const SnackBar(
-        content: Text('Bill requires a due date'),
-        duration: Duration(seconds: 2),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return;
-    }
-
     Occurrence? occurrence;
     if (_repeat) {
       occurrence = _occurrence;
     }
 
-    Bill newBill = Bill(
-      title: trimmed,
-      cost: cost,
-      category: billCategory,
-      dateCreated: DateTime.now(),
-      occurrence: occurrence,
-      notify: false,
-      startDate: _dueDate!,
-      type: billType,
-      repeat: _repeat,
-    );
+    widget.existingBill.title = trimmed;
+    widget.existingBill.cost = cost;
+    widget.existingBill.category = billCategory;
+    widget.existingBill.occurrence = occurrence;
+    widget.existingBill.startDate = _dueDate;
+    widget.existingBill.type = billType;
+    widget.existingBill.repeat = _repeat;
 
-    context.read<BillProvider>().createBill(newBill);
+    context.read<BillProvider>().updateBill(widget.existingBill);
     Navigator.pop(context);
   }
 
@@ -125,23 +106,8 @@ class _AddBillScreenState extends State<AddBillScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'New Bill',
-        ),
-        actions: [
-          TextButton(
-              onPressed: _addBill,
-              child: Text(
-                'Add',
-              ))
-        ],
-      ),
-      bottomSheet: Visibility(
-        visible: _focusNode.hasFocus,
-        child: Container(
-          color: Colors.blue,
-          height: 25,
-        ),
+        title: Text('Edit Bill'),
+        actions: [TextButton(onPressed: _udpateBill, child: Text('Update'))],
       ),
       body: ListView(
         children: [
@@ -274,11 +240,9 @@ class _AddBillScreenState extends State<AddBillScreen> {
             },
             title: Text('Due Date'),
             leading: Icon(Icons.calendar_month),
-            trailing: _dueDate == null
-                ? Icon(Icons.edit_calendar)
-                : Text('${_dueDate!.month}/${_dueDate!.day}/${_dueDate!.year}'),
+            trailing:
+                Text('${_dueDate.month}/${_dueDate.day}/${_dueDate.year}'),
           ),
-
           Visibility(
             visible: _billType != BillType.utility,
             child: Column(
@@ -351,19 +315,19 @@ class _AddBillScreenState extends State<AddBillScreen> {
                     ),
                   ),
                 ),
+                ListTile(
+                  title: Text('Repeat'),
+                  leading: Icon(Icons.repeat),
+                  trailing: Switch(
+                    onChanged: (value) {
+                      setState(() {
+                        _repeat = value;
+                      });
+                    },
+                    value: _repeat,
+                  ),
+                ),
               ],
-            ),
-          ),
-          ListTile(
-            title: Text('Repeat'),
-            leading: Icon(Icons.repeat),
-            trailing: Switch(
-              onChanged: (value) {
-                setState(() {
-                  _repeat = value;
-                });
-              },
-              value: _repeat,
             ),
           ),
           Visibility(
@@ -408,83 +372,6 @@ class _AddBillScreenState extends State<AddBillScreen> {
               ),
             ),
           ),
-          // Visibility(
-          //   visible: _repeat,
-          //   child: ListTile(
-          //     title: Text('Stop'),
-          //     trailing: Switch(
-          //       onChanged: (value) {
-          //         setState(() {
-          //           _stop = value;
-          //           _endDate = null;
-          //         });
-          //       },
-          //       value: _stop,
-          //     ),
-          //   ),
-          // ),
-          // Visibility(
-          //   visible: _repeat && _stop,
-          //   child: ListTile(
-          //     onTap: () async {
-          //       DateTime? chosen = await showDatePicker(
-          //           context: context,
-          //           initialDate: DateTime.now(),
-          //           firstDate: DateTime(DateTime.now().year - 30, 1, 1),
-          //           lastDate: DateTime(DateTime.now().year + 30, 1, 1),
-          //           builder: (context, child) {
-          //             return Theme(
-          //               data: context.read<SettingsProvider>().isDarkMode
-          //                   ? ThemeData.dark().copyWith(
-          //                       colorScheme: ColorScheme.dark(
-          //                         primary: Global.colors.lightIconColor,
-          //                         onPrimary: Colors.black,
-          //                         surface: Global.colors.darkIconColor,
-          //                         onSurface: Colors.white,
-          //                       ),
-          //                       dialogBackgroundColor:
-          //                           Global.colors.darkIconColor,
-          //                     )
-          //                   : ThemeData.light().copyWith(
-          //                       colorScheme: ColorScheme.light(
-          //                         primary: Global.colors.darkIconColor,
-          //                         onPrimary: Colors.white,
-          //                         surface: Global.colors.darkIconColor,
-          //                         onSurface: Colors.black,
-          //                       ),
-          //                       dialogBackgroundColor:
-          //                           Global.colors.lightIconColor,
-          //                     ),
-          //               child: child!,
-          //             );
-          //           });
-          //       if (chosen != null) {
-          //         setState(() {
-          //           _endDate = chosen;
-          //         });
-          //       }
-          //       print({chosen?.month, chosen?.day, chosen?.year});
-          //     },
-          //     title: Text('End Date'),
-          //     trailing: _endDate == null
-          //         ? Icon(Icons.edit_calendar)
-          //         : Text(
-          //             '${_endDate!.month}/${_endDate!.day}/${_endDate!.year}'),
-          //   ),
-          // ),
-
-          // ListTile(
-          //   title: Text('Notify'),
-          //   leading: Icon(Icons.notifications),
-          //   trailing: Switch(
-          //     onChanged: (value) {
-          //       setState(() {
-          //         _notify = value;
-          //       });
-          //     },
-          //     value: _notify,
-          //   ),
-          // )
         ],
       ),
     );

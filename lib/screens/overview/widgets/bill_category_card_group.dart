@@ -51,7 +51,7 @@ class _BillCategoryCardGroupState extends State<BillCategoryCardGroup> {
             0
         ? SizedBox()
         : Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(

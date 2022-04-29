@@ -1,6 +1,7 @@
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/screens/manage/add_bill_screen.dart';
 import 'package:cashew/screens/manage/bill_screen.dart';
+import 'package:cashew/screens/manage/edit_bill_screen.dart';
 import 'package:cashew/screens/manage/manage_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,9 @@ class ManageRoot extends StatelessWidget {
                 return BillScreen(bill: bill);
               case '/addBill':
                 return AddBillScreen();
+              case '/editBill':
+                Bill existingBill = settings.arguments as Bill;
+                return EditBillScreen(existingBill: existingBill);
               default:
                 throw Exception('Invalid route: ${settings.name}');
             }

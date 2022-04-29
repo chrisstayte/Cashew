@@ -243,7 +243,4 @@ class Bill extends HiveObject {
 
     return 0.0;
   }
-
-  // If the event occurs more than once than configure cost
-
 }

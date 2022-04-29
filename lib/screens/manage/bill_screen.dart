@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cashew/enum/occurrence.dart';
 import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
@@ -8,29 +9,62 @@ import 'package:cashew/utilities/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BillScreen extends StatelessWidget {
+class BillScreen extends StatefulWidget {
   const BillScreen({Key? key, required this.bill}) : super(key: key);
 
   final Bill bill;
 
   @override
+  State<BillScreen> createState() => _BillScreenState();
+}
+
+class _BillScreenState extends State<BillScreen> {
+  @override
   // TODO: Add edit bill screen
   Widget build(BuildContext context) {
-    DateTime? nextDueDate = bill.getNextPaymentDate();
+    DateTime? nextDueDate = widget.bill.getNextPaymentDate();
     return Scaffold(
       appBar: AppBar(
-        title: Text(bill.title),
+        title: AutoSizeText(
+          widget.bill.title,
+          maxLines: 1,
+          minFontSize: 12,
+        ),
         actions: [
-          IconButton(
-            onPressed: () {
-              //TODO: Verify Users Choice
-              context.read<BillProvider>().deleteBill(bill);
-              Navigator.pop(context);
+          PopupMenuButton<int>(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (context) => const [
+              PopupMenuItem(
+                value: 1,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.edit),
+                  title: Text('Edit'),
+                ),
+              ),
+              PopupMenuItem(
+                value: 2,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.delete),
+                  title: Text('Delete'),
+                ),
+              )
+            ],
+            onSelected: (value) async {
+              switch (value) {
+                case 1:
+                  await Navigator.pushNamed(context, '/editBill',
+                          arguments: widget.bill)
+                      .then((value) => setState(() => {}));
+                  break;
+                case 2:
+                  context.read<BillProvider>().deleteBill(widget.bill);
+                  Navigator.pop(context);
+                  break;
+              }
             },
-            icon: Icon(
-              Icons.delete,
-            ),
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -42,7 +76,7 @@ class BillScreen extends StatelessWidget {
                 children: [
                   BillInfoCard(
                     title: 'Cost',
-                    content: '\$${bill.cost.currency}',
+                    content: '\$${widget.bill.cost.currency}',
                     iconData: Icons.textsms_sharp,
                   ),
                   BillInfoCard(
@@ -60,12 +94,12 @@ class BillScreen extends StatelessWidget {
                 children: [
                   BillInfoCard(
                     title: 'Type',
-                    content: bill.type.name.capitalize,
+                    content: widget.bill.type.name.capitalize,
                     iconData: Icons.textsms_sharp,
                   ),
                   BillInfoCard(
                     title: 'Category',
-                    content: bill.category.name.capitalize,
+                    content: widget.bill.category.name.capitalize,
                     iconData: Icons.textsms_sharp,
                   ),
                 ],
@@ -76,13 +110,15 @@ class BillScreen extends StatelessWidget {
                 children: [
                   BillInfoCard(
                     title: 'Repeating',
-                    content: bill.repeat ? bill.occurrence!.nameReadable : 'No',
+                    content: widget.bill.repeat
+                        ? widget.bill.occurrence!.nameReadable
+                        : 'No',
                     iconData: Icons.textsms_sharp,
                   ),
                   BillInfoCard(
                     title: 'Date Created',
                     content:
-                        '${bill.dateCreated.month}/${bill.dateCreated.day}/${bill.dateCreated.year}',
+                        '${widget.bill.dateCreated.month}/${widget.bill.dateCreated.day}/${widget.bill.dateCreated.year}',
                     iconData: Icons.calendar_today,
                   ),
                 ],

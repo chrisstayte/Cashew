@@ -112,103 +112,108 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 )
               ],
             )
-          : Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    '\$${context.watch<BillProvider>().bills.map((bill) => bill.getMonthlyCost()).reduce((value, element) => value + element).currency}',
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 170,
-                  child: PieChart(
-                    PieChartData(
-                      sectionsSpace: 0,
-                      centerSpaceRadius: 40,
-                      sections: _generatePieChartSections(_dateToView.dateTime),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 22.0, bottom: 10, left: 50, right: 50),
-                  child: Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(25.0),
+          : CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate.fixed(
+                    [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Center(
+                          child: Text(
+                            '\$${context.watch<BillProvider>().bills.map((bill) => bill.getMonthlyCost(givenDate: _dateToView.dateTime)).reduce((value, element) => value + element).currency}',
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
                         ),
-                        color: context.watch<SettingsProvider>().isDarkMode
-                            ? Colors.white
-                            : Colors.black,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _dateToView = _dateToView.subtract(months: 1);
-                              });
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color:
-                                  context.watch<SettingsProvider>().isDarkMode
+                      SizedBox(
+                        height: 170,
+                        child: PieChart(
+                          PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 40,
+                            sections:
+                                _generatePieChartSections(_dateToView.dateTime),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SliverAppBar(
+                  titleSpacing: 8.0,
+                  elevation: 2,
+                  pinned: true,
+                  title: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(25.0),
+                      ),
+                      color: context.watch<SettingsProvider>().isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _dateToView = _dateToView.subtract(months: 1);
+                            });
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: context.watch<SettingsProvider>().isDarkMode
+                                ? Colors.black
+                                : Colors.white,
+                          ),
+                        ),
+                        Expanded(
+                          child: AutoSizeText(
+                            '${DateFormat(DateFormat.MONTH).format(_dateToView.dateTime)} ${_dateToView.year}',
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: context
+                                          .watch<SettingsProvider>()
+                                          .isDarkMode
                                       ? Colors.black
                                       : Colors.white,
-                            ),
+                                ),
                           ),
-                          SizedBox(
-                            width: 160,
-                            child: AutoSizeText(
-                              '${DateFormat(DateFormat.MONTH).format(_dateToView.dateTime)} ${_dateToView.year}',
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    color: context
-                                            .watch<SettingsProvider>()
-                                            .isDarkMode
-                                        ? Colors.black
-                                        : Colors.white,
-                                  ),
-                            ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _dateToView = _dateToView.add(months: 1);
+                            });
+                          },
+                          icon: Icon(
+                            Icons.arrow_forward,
+                            color: context.watch<SettingsProvider>().isDarkMode
+                                ? Colors.black
+                                : Colors.white,
                           ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _dateToView = _dateToView.add(months: 1);
-                              });
-                            },
-                            icon: Icon(
-                              Icons.arrow_forward,
-                              color:
-                                  context.watch<SettingsProvider>().isDarkMode
-                                      ? Colors.black
-                                      : Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: ListView(
-                        children: _generateBillCardGroups(_dateToView.dateTime),
-                      ),
-                    ))
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    _generateBillCardGroups(_dateToView.dateTime),
+                  ),
+                )
               ],
             ),
     );
