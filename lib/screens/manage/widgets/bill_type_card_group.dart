@@ -217,6 +217,7 @@ class _BillTypeCardGroupState extends State<BillTypeCardGroup> {
                       '\$${_getTotalCost().currency}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
                     Divider(),

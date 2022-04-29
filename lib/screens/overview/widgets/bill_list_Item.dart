@@ -42,6 +42,7 @@ class BillListItem extends StatelessWidget {
                   maxLines: 3,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -55,13 +56,14 @@ class BillListItem extends StatelessWidget {
                     '\$${bill.getMonthlyCost(givenDate: givenDate).currency}',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
+                      fontSize: 18,
                     ),
                   ),
-                  Text(
-                      nextPaymentDate == null
-                          ? 'Not Due'
-                          : '${nextPaymentDate.month}/${nextPaymentDate.day}/${nextPaymentDate.year}',
-                      style: TextStyle(fontWeight: FontWeight.w400)),
+                  // Text(
+                  //     nextPaymentDate == null
+                  //         ? 'Not Due'
+                  //         : '${nextPaymentDate.month}/${nextPaymentDate.day}/${nextPaymentDate.year}',
+                  //     style: TextStyle(fontWeight: FontWeight.w400)),
                 ],
               ),
             ],

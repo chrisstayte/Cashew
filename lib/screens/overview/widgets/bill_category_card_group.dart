@@ -89,9 +89,16 @@ class _BillCategoryCardGroupState extends State<BillCategoryCardGroup> {
                             child: Text(
                               '\$${_getTotalCost().currency}',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  color: Global
+                                              .colors
+                                              .categoryColors[
+                                                  widget.billCategory]!
+                                              .computeLuminance() >
+                                          0.5
+                                      ? Colors.black
+                                      : Colors.white,
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 18),
                             ),
                           ),
                         ),

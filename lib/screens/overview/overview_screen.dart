@@ -116,10 +116,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
       appBar: AppBar(
         title: context.watch<BillProvider>().bills.length == 0
             ? const Text('Welcome To Cashew')
-            : const Text('Monthly Nut'),
+            : const Text('Cashew'),
         actions: [
           Visibility(
-            visible: _appBarPriceVisible,
+            visible: _appBarPriceVisible &&
+                context.watch<BillProvider>().bills.length > 0,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.only(right: 8.0),
@@ -235,7 +236,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         ),
                         Expanded(
                           child: AutoSizeText(
-                            '${DateFormat(DateFormat.MONTH).format(_dateToView.dateTime)} ${_dateToView.year}',
+                            '${DateFormat(DateFormat.MONTH).format(_dateToView.dateTime).toUpperCase()} ${_dateToView.year}',
                             maxLines: 1,
                             textAlign: TextAlign.center,
                             style: Theme.of(context)

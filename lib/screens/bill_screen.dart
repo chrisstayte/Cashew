@@ -3,7 +3,7 @@ import 'package:cashew/enum/occurrence.dart';
 import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
-import 'package:cashew/screens/manage/widgets/bill_info_card.dart';
+import 'package:cashew/screens/widgets/bill_info_card.dart';
 import 'package:cashew/utilities/double_extensions.dart';
 import 'package:cashew/utilities/string_extensions.dart';
 import 'package:flutter/material.dart';
@@ -117,6 +117,23 @@ class _BillScreenState extends State<BillScreen> {
               child: Row(
                 children: [
                   BillInfoCard(
+                    title: 'This Months Cost',
+                    content: '\$${widget.bill.getMonthlyCost().currency}',
+                    iconData: Icons.textsms_sharp,
+                  ),
+                  BillInfoCard(
+                    title: 'Date Started',
+                    content:
+                        '${widget.bill.startDate.month}/${widget.bill.startDate.day}/${widget.bill.startDate.year}',
+                    iconData: Icons.calendar_today,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  BillInfoCard(
                     title: 'Type',
                     content: widget.bill.type.name.capitalize,
                     iconData: Icons.textsms_sharp,
@@ -147,7 +164,7 @@ class _BillScreenState extends State<BillScreen> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -44,11 +44,13 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
       theme: ThemeData.light().copyWith(
+        textTheme: GoogleFonts.overpassTextTheme(),
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Colors.white,
-          toolbarTextStyle: TextStyle(color: Colors.black),
+          toolbarTextStyle:
+              GoogleFonts.overpass().copyWith(color: Colors.black),
           titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
                 color: Colors.black,
               ),
@@ -66,7 +68,6 @@ class MyApp extends StatelessWidget {
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
-        // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.black,
         ),
@@ -76,7 +77,6 @@ class MyApp extends StatelessWidget {
         listTileTheme: const ListTileThemeData(
           iconColor: Colors.black,
         ),
-
         popupMenuTheme: PopupMenuThemeData(
           color: Colors.white,
         ),
@@ -97,11 +97,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.overpassTextTheme(ThemeData.dark().textTheme),
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Colors.black,
-          toolbarTextStyle: TextStyle(color: Colors.white),
+          toolbarTextStyle:
+              GoogleFonts.overpass().copyWith(color: Colors.white),
           titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
                 color: Colors.white,
               ),
@@ -119,7 +121,6 @@ class MyApp extends StatelessWidget {
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
-        // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.white,
         ),

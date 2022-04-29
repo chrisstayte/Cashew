@@ -146,7 +146,7 @@ class BillProvider extends ChangeNotifier {
     );
 
     Bill carInsurance = Bill(
-      title: 'Car Insuracnce',
+      title: 'Progressive',
       dateCreated: now,
       startDate: DateTime(2022, 2, 11),
       repeat: true,

@@ -47,6 +47,7 @@ class BillInfoCard extends StatelessWidget {
                 ),
               ),
               Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
@@ -58,8 +59,9 @@ class BillInfoCard extends StatelessWidget {
                       : Colors.black,
                 ),
                 child: Center(
-                  child: Text(
+                  child: AutoSizeText(
                     title,
+                    maxLines: 1,
                     style: TextStyle(
                       color: context.watch<SettingsProvider>().isDarkMode
                           ? Colors.black
