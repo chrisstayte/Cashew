@@ -1,7 +1,7 @@
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/screens/manage/add_bill_screen.dart';
-import 'package:cashew/screens/manage/bill_screen.dart';
-import 'package:cashew/screens/manage/edit_bill_screen.dart';
+import 'package:cashew/screens/bill_screen.dart';
+import 'package:cashew/screens/edit_bill_screen.dart';
 import 'package:cashew/screens/manage/manage_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -17,19 +17,19 @@ class _Colors {
   late final darkIconColorLighter =
       HSLColor.fromColor(darkIconColor).withLightness(0.75).toColor();
   final Map<BillCategory, Color> categoryColors = {
-    BillCategory.auto: Color(0xFF0c2a2a),
-    BillCategory.entertainment: Color(0xFFC5C365),
-    BillCategory.fitness: Color(0xFF262D38),
-    BillCategory.food: Color(0xff534C44),
-    BillCategory.general: Color(0xFF748386),
-    BillCategory.healthCare: Color(0Xffbfa41a),
-    BillCategory.housing: Color.fromARGB(255, 6, 136, 75),
-    BillCategory.insurance: Color.fromARGB(255, 167, 120, 220),
-    BillCategory.parking: Color(0Xff0D1321),
-    BillCategory.sports: Color(0Xff3eab6e),
-    BillCategory.studentLoan: Color(0xffc24a30),
-    BillCategory.telephone: Color(0xffce4833),
-    BillCategory.utility: Color(0Xff0A2472),
+    BillCategory.auto: Color(0xFFffa645),
+    BillCategory.entertainment: Color(0xFFf55d41),
+    BillCategory.fitness: Color(0xFFf4e249),
+    BillCategory.food: Color(0xFFd5e290),
+    BillCategory.general: Color(0xFF86c98d),
+    BillCategory.healthCare: Color(0Xff64c3a9),
+    BillCategory.housing: Color(0XFFff9fa8),
+    BillCategory.insurance: Color(0XFFf7617c),
+    BillCategory.parking: Color(0XFF38b257),
+    BillCategory.sports: Color(0XFFa37ab2),
+    BillCategory.studentLoan: Color(0xFF00aab2),
+    BillCategory.telephone: Color(0xFFd02272),
+    BillCategory.utility: Color(0XFF655ea1),
   };
 }
 

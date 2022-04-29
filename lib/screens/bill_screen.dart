@@ -59,8 +59,32 @@ class _BillScreenState extends State<BillScreen> {
                       .then((value) => setState(() => {}));
                   break;
                 case 2:
-                  context.read<BillProvider>().deleteBill(widget.bill);
-                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (dialogContext) {
+                      return AlertDialog(
+                        title: Text(
+                          'Delete ${widget.bill.title}',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              context
+                                  .read<BillProvider>()
+                                  .deleteBill(widget.bill);
+                              Navigator.of(dialogContext).pop();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Yes'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('No'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                   break;
               }
             },

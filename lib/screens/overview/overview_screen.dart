@@ -21,6 +21,8 @@ class OverviewScreen extends StatefulWidget {
 
 class _OverviewScreenState extends State<OverviewScreen> {
   Jiffy _dateToView = Jiffy(DateTime.now());
+  late ScrollController _scrollController = ScrollController();
+  bool _appBarPriceVisible = false;
 
   List<PieChartSectionData> _generatePieChartSections(DateTime fromWhatDate) {
     Map<BillCategory, double> sections = <BillCategory, double>{};
@@ -71,12 +73,67 @@ class _OverviewScreenState extends State<OverviewScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      _scrollController.addListener(() {
+        if (_scrollController.position.pixels >= 53) {
+          if (!_appBarPriceVisible) {
+            setState(() {
+              _appBarPriceVisible = true;
+            });
+          }
+        } else {
+          if (_appBarPriceVisible) {
+            setState(() {
+              _appBarPriceVisible = false;
+            });
+          }
+        }
+        // setState(() {
+        //   _appBarPriceVisible = _scrollController.position.pixels > 53;
+        // });
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    double monthlyCost = context.watch<BillProvider>().bills.length == 0
+        ? 0
+        : context
+            .watch<BillProvider>()
+            .bills
+            .map((bill) => bill.getMonthlyCost(givenDate: _dateToView.dateTime))
+            .reduce((value, element) => value + element);
     return Scaffold(
       appBar: AppBar(
         title: context.watch<BillProvider>().bills.length == 0
             ? const Text('Welcome To Cashew')
             : const Text('Monthly Nut'),
+        actions: [
+          Visibility(
+            visible: _appBarPriceVisible,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Text(
+                  '\$${monthlyCost.currency}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: context.watch<BillProvider>().bills.length == 0
           ? Column(
@@ -113,6 +170,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
               ],
             )
           : CustomScrollView(
+              controller: _scrollController,
               slivers: [
                 SliverList(
                   delegate: SliverChildListDelegate.fixed(
@@ -121,7 +179,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Center(
                           child: Text(
-                            '\$${context.watch<BillProvider>().bills.map((bill) => bill.getMonthlyCost(givenDate: _dateToView.dateTime)).reduce((value, element) => value + element).currency}',
+                            '\$${monthlyCost.currency}',
                             style: const TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.w300,

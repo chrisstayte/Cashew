@@ -5,6 +5,7 @@ import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,13 +33,16 @@ class _AddBillScreenState extends State<AddBillScreen> {
   Occurrence _occurrence = Occurrence.month;
   bool _repeat = false;
   bool _stop = false;
+
+  bool _numVisible = false;
   // bool _notify = false;
 
   @override
   void initState() {
     _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-      } else {}
+      setState(() {
+        _numVisible = _focusNode.hasFocus;
+      });
     });
 
     super.initState();
@@ -137,10 +141,22 @@ class _AddBillScreenState extends State<AddBillScreen> {
         ],
       ),
       bottomSheet: Visibility(
-        visible: _focusNode.hasFocus,
+        visible: _numVisible,
         child: Container(
-          color: Colors.blue,
-          height: 25,
+          color: context.watch<SettingsProvider>().isDarkMode
+              ? Colors.black12
+              : CupertinoColors.systemGrey4,
+          height: 45,
+          child: Row(children: [
+            Spacer(),
+            TextButton(
+                onPressed: () {
+                  _focusNode.unfocus();
+                },
+                child: Text(
+                  'Done',
+                ))
+          ]),
         ),
       ),
       body: ListView(
@@ -158,6 +174,7 @@ class _AddBillScreenState extends State<AddBillScreen> {
                 IntrinsicWidth(
                   child: TextField(
                     controller: _costController,
+                    focusNode: _focusNode,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                           RegExp(r'^\d+\.?\d{0,2}'))
@@ -288,6 +305,10 @@ class _AddBillScreenState extends State<AddBillScreen> {
                   title: Text('Category'),
                   trailing: DropdownButtonHideUnderline(
                     child: DropdownButton(
+                      dropdownColor:
+                          context.watch<SettingsProvider>().isDarkMode
+                              ? CupertinoColors.darkBackgroundGray
+                              : Colors.white,
                       value: _category,
                       onChanged: (Object? value) {
                         setState(() {

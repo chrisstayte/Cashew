@@ -20,8 +20,7 @@ class BillListItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 15),
       child: GestureDetector(
-        // onTap: () => Navigator.pushNamed(context, '/bill', arguments: bill),
-        onTap: () {},
+        onTap: () => Navigator.pushNamed(context, '/bill', arguments: bill),
         child: Container(
           color: Colors.transparent,
           child: Row(

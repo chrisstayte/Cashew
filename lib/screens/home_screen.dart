@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             label: 'Settings',
-            icon: Icon(Icons.settings),
+            icon: FaIcon(FontAwesomeIcons.gear),
           )
           // BottomNavigationBarItem(
           //   label: 'Calculate',

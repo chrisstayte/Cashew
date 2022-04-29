@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Colors.white,
+          toolbarTextStyle: TextStyle(color: Colors.black),
           titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
                 color: Colors.black,
               ),
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
         listTileTheme: const ListTileThemeData(
           iconColor: Colors.black,
         ),
+
         popupMenuTheme: PopupMenuThemeData(
           color: Colors.white,
         ),
@@ -99,6 +101,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           centerTitle: false,
           color: Colors.black,
+          toolbarTextStyle: TextStyle(color: Colors.white),
           titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
                 color: Colors.white,
               ),

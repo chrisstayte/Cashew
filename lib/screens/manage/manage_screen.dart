@@ -5,6 +5,7 @@ import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';
 import 'package:cashew/screens/manage/widgets/bill_type_card_group.dart';
 import 'package:cashew/screens/manage/widgets/bill_list_item.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,16 @@ class _ManageScreenState extends State<ManageScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bills'),
+        actions: [
+          Visibility(
+              visible: kDebugMode,
+              child: IconButton(
+                icon: Icon(
+                  Icons.delete,
+                ),
+                onPressed: context.read<BillProvider>().deleteAllBills,
+              ))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -56,10 +67,17 @@ class _ManageScreenState extends State<ManageScreen> {
         padding: const EdgeInsets.all(8.0),
         child: context.watch<BillProvider>().bills.length == 0
             ? Center(
-                child: Text(
-                  'No Bills Added',
-                  style: TextStyle(
-                    fontSize: 19,
+                child: GestureDetector(
+                  onTap: () {
+                    if (kDebugMode) {
+                      context.read<BillProvider>().addDummyData();
+                    }
+                  },
+                  child: Text(
+                    'No Bills Added',
+                    style: TextStyle(
+                      fontSize: 19,
+                    ),
                   ),
                 ),
               )
