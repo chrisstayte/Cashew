@@ -1,5 +1,5 @@
 import 'package:cashew/enum/bill_type.dart';
-import 'package:cashew/enum/bill_type_card_sorting_method.dart';
+import 'package:cashew/enum/bill_sorting_method.dart';
 import 'package:cashew/global/global.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';
@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class BillTypeCard extends StatefulWidget {
-  const BillTypeCard({
+class BillTypeCardGroup extends StatefulWidget {
+  const BillTypeCardGroup({
     Key? key,
     required this.title,
     required this.billType,
@@ -20,11 +20,11 @@ class BillTypeCard extends StatefulWidget {
   final BillType billType;
 
   @override
-  State<BillTypeCard> createState() => _BillTypeCardState();
+  State<BillTypeCardGroup> createState() => _BillTypeCardGroupState();
 }
 
-class _BillTypeCardState extends State<BillTypeCard> {
-  double GetTotalCost() {
+class _BillTypeCardGroupState extends State<BillTypeCardGroup> {
+  double _getTotalCost() {
     double totalCost = context
         .read<BillProvider>()
         .bills
@@ -43,16 +43,19 @@ class _BillTypeCardState extends State<BillTypeCard> {
                 .length ==
             0
         ? SizedBox()
-        : GestureDetector(
-            // onTap: () => Navigator.pushNamed(
-            //   context,
-            //   '/section',
-            //   arguments: widget.title,
-            // ),
-            onTap: () {},
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+                border: Border.all(
+                  width: .8,
+                  color: context.watch<SettingsProvider>().isDarkMode
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -63,10 +66,7 @@ class _BillTypeCardState extends State<BillTypeCard> {
                       children: [
                         Text(
                           widget.title,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                         Spacer(),
                         // Icon(
@@ -76,145 +76,134 @@ class _BillTypeCardState extends State<BillTypeCard> {
                           child: Icon(Icons.sort),
                           onSelected: (value) => context
                               .read<SettingsProvider>()
-                              .setBillTypeCardSortingMethod(widget.billType,
-                                  value as BillTypeCardSortingMethod),
+                              .setBillTypeCardSortingMethod(
+                                  widget.billType, value as BillSortingMethod),
                           itemBuilder: (context) {
-                            return <PopupMenuItem<BillTypeCardSortingMethod>>[
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod.costAscending,
+                            return <PopupMenuItem<BillSortingMethod>>[
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.costAscending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDown19),
                                   title: Text('Cost (Low - High)'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
-                                              .costAscending
+                                          BillSortingMethod.costAscending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod.costDescending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.costDescending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDown91),
                                   title: Text('Cost (High - Low)'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
-                                              .costDescending
+                                          BillSortingMethod.costDescending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod.titleAscending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.titleAscending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDownAZ),
                                   title: Text('Title Ascending'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
-                                              .titleAscending
+                                          BillSortingMethod.titleAscending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value:
-                                    BillTypeCardSortingMethod.titleDescending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.titleDescending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDownZA),
                                   title: Text('Title Descending'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
-                                              .titleDescending
+                                          BillSortingMethod.titleDescending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod
-                                    .dateCreatedAscending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.dateCreatedAscending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDown19),
                                   title: Text('Date Created (New - Old)'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
-                                              .dateCreatedAscending
+                                          BillSortingMethod.dateCreatedAscending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod
-                                    .dateCreatedAscending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.dateCreatedAscending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDown91),
                                   title: Text('Date Created (Old - New)'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
+                                          BillSortingMethod
                                               .dateCreatedDescending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod
-                                    .nextDueDateAscending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.nextDueDateAscending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDown19),
                                   title: Text('Next Due Date (Sooner - Later)'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
-                                              .nextDueDateAscending
+                                          BillSortingMethod.nextDueDateAscending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod
-                                    .nextDueDateDescending,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.nextDueDateDescending,
                                 child: ListTile(
                                   leading: FaIcon(FontAwesomeIcons.arrowDown91),
                                   title: Text('Next Due Date (Later - Sooner)'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod
+                                          BillSortingMethod
                                               .nextDueDateDescending
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
                               ),
-                              PopupMenuItem<BillTypeCardSortingMethod>(
-                                value: BillTypeCardSortingMethod.category,
+                              PopupMenuItem<BillSortingMethod>(
+                                value: BillSortingMethod.category,
                                 child: ListTile(
                                   leading: Icon(Icons.category_rounded),
                                   title: Text('Category'),
                                   trailing: context
                                               .read<SettingsProvider>()
-                                              .getBillTypeCardSortingMethod(
+                                              .getBillTypeSortingMethod(
                                                   widget.billType) ==
-                                          BillTypeCardSortingMethod.category
+                                          BillSortingMethod.category
                                       ? Icon(Icons.check)
                                       : null,
                                 ),
@@ -222,35 +211,14 @@ class _BillTypeCardState extends State<BillTypeCard> {
                             ];
                           },
                         )
-                        // DropdownButtonHideUnderline(
-                        //   child: DropdownButton(
-                        //     isDense: true,
-                        //     icon: Icon(Icons.sort),
-                        //     value: context
-                        //         .watch<SettingsProvider>()
-                        //         .getBillTypeCardSortingMethod(widget.billType),
-                        //     onChanged: (value) {
-                        //       context
-                        //           .read<SettingsProvider>()
-                        //           .setBillTypeCardSortingMethod(widget.billType,
-                        //               value as BillTypeCardSortingMethod);
-                        //     },
-                        //     items: const [
-                        //       DropdownMenuItem<BillTypeCardSortingMethod>(
-                        //         child: Text('Title Ascending'),
-                        //         value: BillTypeCardSortingMethod.titleAscending,
-                        //       ),
-                        //       DropdownMenuItem<BillTypeCardSortingMethod>(
-                        //         child: Text('Date Created Ascending'),
-                        //         value: BillTypeCardSortingMethod
-                        //             .dateCreatedAscending,
-                        //       )
-                        //     ],
-                        //   ),
-                        // )
                       ],
                     ),
-                    Text('\$${GetTotalCost().currency}'),
+                    Text(
+                      '\$${_getTotalCost().currency}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Divider(),
                     Column(
                         children: (context
@@ -261,7 +229,7 @@ class _BillTypeCardState extends State<BillTypeCard> {
                                 .toList()
                               ..sort(Global.billSorting.sortingBin[context
                                       .watch<SettingsProvider>()
-                                      .getBillTypeCardSortingMethod(
+                                      .getBillTypeSortingMethod(
                                           widget.billType)] ??
                                   (a, b) =>
                                       a.dateCreated.compareTo(b.dateCreated)))

@@ -17,32 +17,29 @@ enum BillCategory {
   auto,
 
   @HiveField(4)
-  rent,
+  housing,
 
   @HiveField(5)
-  mortgage,
-
-  @HiveField(6)
   healthCare,
 
+  @HiveField(6)
+  studentLoan,
+
   @HiveField(7)
-  studenLoan,
+  fitness,
 
   @HiveField(8)
-  gym,
-
-  @HiveField(9)
   sports,
 
-  @HiveField(10)
+  @HiveField(9)
   food,
 
-  @HiveField(11)
+  @HiveField(10)
   insurance,
 
-  @HiveField(12)
+  @HiveField(11)
   telephone,
 
-  @HiveField(13)
+  @HiveField(12)
   parking,
 }

@@ -8,17 +8,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 
 class BillListItem extends StatelessWidget {
-  const BillListItem({Key? key, required this.bill}) : super(key: key);
+  const BillListItem({Key? key, required this.bill, required this.givenDate})
+      : super(key: key);
 
   final Bill bill;
+  final DateTime givenDate;
 
   @override
   Widget build(BuildContext context) {
-    DateTime? nextPaymentDate = bill.getNextPaymentDate();
+    DateTime? nextPaymentDate = bill.getNextPaymentDate(givenDate: givenDate);
     return Padding(
       padding: EdgeInsets.only(top: 15),
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, '/bill', arguments: bill),
+        // onTap: () => Navigator.pushNamed(context, '/bill', arguments: bill),
+        onTap: () {},
         child: Container(
           color: Colors.transparent,
           child: Row(
@@ -50,7 +53,7 @@ class BillListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '\$${bill.cost.currency}',
+                    '\$${bill.getMonthlyCost(givenDate: givenDate).currency}',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                     ),

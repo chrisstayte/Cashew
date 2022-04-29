@@ -1,5 +1,5 @@
 import 'package:cashew/enum/bill_type.dart';
-import 'package:cashew/enum/bill_type_card_sorting_method.dart';
+import 'package:cashew/enum/bill_sorting_method.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,15 +19,15 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  BillTypeCardSortingMethod getBillTypeCardSortingMethod(BillType billType) {
-    return BillTypeCardSortingMethod.values.byName(
-        prefs?.getString('${billType.name}SortingMethod') ??
-            BillTypeCardSortingMethod.dateCreatedAscending.name);
+  BillSortingMethod getBillTypeSortingMethod(BillType billType) {
+    return BillSortingMethod.values.byName(
+        prefs?.getString('${billType.name}TypeSortingMethod') ??
+            BillSortingMethod.dateCreatedAscending.name);
   }
 
   void setBillTypeCardSortingMethod(
-      BillType billType, BillTypeCardSortingMethod value) async {
-    await prefs?.setString('${billType.name}SortingMethod', value.name);
+      BillType billType, BillSortingMethod value) async {
+    await prefs?.setString('${billType.name}TypeSortingMethod', value.name);
     notifyListeners();
   }
 

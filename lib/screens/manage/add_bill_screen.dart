@@ -263,13 +263,12 @@ class _AddBillScreenState extends State<AddBillScreen> {
                             )
                           : ThemeData.light().copyWith(
                               colorScheme: ColorScheme.light(
-                                primary: Global.colors.darkIconColor,
+                                primary: Colors.black,
                                 onPrimary: Colors.white,
                                 surface: Global.colors.darkIconColor,
                                 onSurface: Colors.black,
                               ),
-                              dialogBackgroundColor:
-                                  Global.colors.lightIconColor,
+                              dialogBackgroundColor: Colors.white,
                             ),
                       child: child!,
                     );
@@ -319,12 +318,16 @@ class _AddBillScreenState extends State<AddBillScreen> {
                           value: BillCategory.entertainment,
                         ),
                         DropdownMenuItem(
+                          child: Text('Fitness'),
+                          value: BillCategory.fitness,
+                        ),
+                        DropdownMenuItem(
                           child: Text('Food'),
                           value: BillCategory.food,
                         ),
                         DropdownMenuItem(
-                          child: Text('Gym'),
-                          value: BillCategory.gym,
+                          child: Text('Housing'),
+                          value: BillCategory.housing,
                         ),
                         DropdownMenuItem(
                           child: Text('Healthcare'),
@@ -335,16 +338,8 @@ class _AddBillScreenState extends State<AddBillScreen> {
                           value: BillCategory.insurance,
                         ),
                         DropdownMenuItem(
-                          child: Text('Mortgage'),
-                          value: BillCategory.mortgage,
-                        ),
-                        DropdownMenuItem(
                           child: Text('Parking'),
                           value: BillCategory.parking,
-                        ),
-                        DropdownMenuItem(
-                          child: Text('Rent'),
-                          value: BillCategory.rent,
                         ),
                         DropdownMenuItem(
                           child: Text('Sports'),
@@ -352,7 +347,7 @@ class _AddBillScreenState extends State<AddBillScreen> {
                         ),
                         DropdownMenuItem(
                           child: Text('Student Loan'),
-                          value: BillCategory.studenLoan,
+                          value: BillCategory.studentLoan,
                         ),
                         DropdownMenuItem(
                           child: Text('Telephone'),

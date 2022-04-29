@@ -1,4 +1,4 @@
-enum BillTypeCardSortingMethod {
+enum BillSortingMethod {
   titleAscending,
   titleDescending,
   costAscending,

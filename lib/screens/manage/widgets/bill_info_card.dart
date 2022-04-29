@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cashew/global/global.dart';
+import 'package:cashew/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BillInfoCard extends StatelessWidget {
   const BillInfoCard({
@@ -17,38 +19,52 @@ class BillInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Card(
-        child: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Center(
-                  child: AutoSizeText(
-                    content,
-                    style: const TextStyle(fontSize: 36),
-                    maxLines: 1,
-                  ),
-                ),
-              ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: context.watch<SettingsProvider>().isDarkMode
+                  ? Colors.white
+                  : Colors.black,
             ),
-            Container(
-              height: 45,
-              decoration: BoxDecoration(
-                color: Global.colors.lightIconColorDarker,
-              ),
-              child: Center(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Center(
+                    child: AutoSizeText(
+                      content,
+                      style: const TextStyle(fontSize: 36),
+                      maxLines: 1,
+                    ),
                   ),
                 ),
               ),
-            )
-          ],
+              Container(
+                height: 45,
+                decoration: BoxDecoration(
+                  color: context.watch<SettingsProvider>().isDarkMode
+                      ? Colors.white
+                      : Colors.black,
+                ),
+                child: Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: context.watch<SettingsProvider>().isDarkMode
+                          ? Colors.black
+                          : Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

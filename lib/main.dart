@@ -44,45 +44,57 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: Global.colors.lightIconColor,
-        appBarTheme: AppBarTheme(
-          centerTitle: false,
-          color: Global.colors.lightIconColor,
-          titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
-                color: Global.colors.darkIconColor,
-              ),
-          // titleTextStyle: GoogleFonts.barlow(
-          //   textStyle: Theme.of(context).textTheme.headline5,
-          //   fontSize: 28,
-          //   fontWeight: FontWeight.w500,
-          // ),
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: Global.colors.lightIconColorDarker,
+          scaffoldBackgroundColor: Colors.white,
+          cardColor: Colors.white60,
+          appBarTheme: AppBarTheme(
+            centerTitle: false,
+            color: Colors.white,
+            titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+                  color: Colors.black,
+                ),
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
           ),
-        ),
-        dividerColor: Global.colors.darkIconColor,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          elevation: 0,
-          backgroundColor: Global.colors.lightIconColor,
-          selectedItemColor: Global.colors.darkIconColor,
-          unselectedItemColor: Global.colors.lightIconColorDarker,
-          showUnselectedLabels: false,
-          showSelectedLabels: false,
-        ),
-        // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Global.colors.darkIconColor),
-        iconTheme: IconThemeData(
-          color: Global.colors.darkIconColor,
-        ),
-        chipTheme: ChipThemeData(
-          backgroundColor: Global.colors.darkIconColorLighter,
-          selectedColor: Global.colors.darkIconColor,
-          labelStyle: const TextStyle(color: Colors.black),
-          secondaryLabelStyle: const TextStyle(color: Colors.white),
-        ),
-      ),
+          dividerColor: Colors.black,
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.black54,
+            showUnselectedLabels: false,
+            showSelectedLabels: false,
+          ),
+          // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Colors.black,
+          ),
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+          listTileTheme: const ListTileThemeData(
+            iconColor: Colors.black,
+          ),
+          popupMenuTheme: PopupMenuThemeData(
+            color: Colors.white,
+          ),
+          chipTheme: ChipThemeData(
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.black, width: 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            backgroundColor: Colors.white,
+            selectedColor: Colors.black,
+            labelStyle: TextStyle(color: Colors.black),
+            secondaryLabelStyle: TextStyle(color: Colors.white),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              primary: Colors.black,
+            ),
+          ),
+          dividerTheme: DividerThemeData(color: Colors.black)),
       darkTheme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Global.colors.darkIconColor,
         appBarTheme: AppBarTheme(

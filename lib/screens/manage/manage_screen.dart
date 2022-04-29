@@ -1,9 +1,9 @@
 import 'package:cashew/enum/bill_type.dart';
-import 'package:cashew/enum/bill_type_card_sorting_method.dart';
+import 'package:cashew/enum/bill_sorting_method.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';
-import 'package:cashew/screens/manage/widgets/bill_type_card.dart';
+import 'package:cashew/screens/manage/widgets/bill_type_card_group.dart';
 import 'package:cashew/screens/manage/widgets/bill_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,18 +19,18 @@ class ManageScreen extends StatefulWidget {
 class _ManageScreenState extends State<ManageScreen> {
   final double cardPadding = 10;
 
-  final List<BillTypeCard> _billCards = [
-    BillTypeCard(
+  final List<BillTypeCardGroup> _billCards = [
+    BillTypeCardGroup(
       key: UniqueKey(),
       title: 'Utilities',
       billType: BillType.utility,
     ),
-    BillTypeCard(
+    BillTypeCardGroup(
       key: UniqueKey(),
       title: 'Subscriptions',
       billType: BillType.subscription,
     ),
-    BillTypeCard(
+    BillTypeCardGroup(
       key: UniqueKey(),
       title: 'Financed',
       billType: BillType.financed,
