@@ -25,7 +25,6 @@ class _AddBillScreenState extends State<AddBillScreen> {
   TextEditingController _costController = TextEditingController();
   TextEditingController _titleController = TextEditingController();
 
-  final double _dividerIndentSize = 15.0;
   BillType _billType = BillType.subscription;
   DateTime? _dueDate;
   DateTime? _endDate;
@@ -220,7 +219,7 @@ class _AddBillScreenState extends State<AddBillScreen> {
               ],
             ),
           ),
-          Divider(),
+
           ListTile(
             leading: Icon(Icons.title),
             title: TextField(
@@ -237,10 +236,7 @@ class _AddBillScreenState extends State<AddBillScreen> {
               ),
             ),
           ),
-          Divider(
-            indent: _dividerIndentSize,
-            endIndent: _dividerIndentSize,
-          ),
+
           ListTile(
             onTap: () async {
               DateTime? chosen = await showDatePicker(
@@ -252,20 +248,19 @@ class _AddBillScreenState extends State<AddBillScreen> {
                     return Theme(
                       data: context.read<SettingsProvider>().isDarkMode
                           ? ThemeData.dark().copyWith(
-                              colorScheme: ColorScheme.dark(
-                                primary: Global.colors.lightIconColor,
+                              colorScheme: const ColorScheme.dark(
+                                primary: Colors.white,
                                 onPrimary: Colors.black,
-                                surface: Global.colors.darkIconColor,
+                                surface: Colors.black,
                                 onSurface: Colors.white,
                               ),
-                              dialogBackgroundColor:
-                                  Global.colors.darkIconColor,
+                              dialogBackgroundColor: Colors.black,
                             )
                           : ThemeData.light().copyWith(
                               colorScheme: ColorScheme.light(
                                 primary: Colors.black,
                                 onPrimary: Colors.white,
-                                surface: Global.colors.darkIconColor,
+                                surface: Colors.black,
                                 onSurface: Colors.black,
                               ),
                               dialogBackgroundColor: Colors.white,
@@ -285,10 +280,7 @@ class _AddBillScreenState extends State<AddBillScreen> {
                 ? Icon(Icons.edit_calendar)
                 : Text('${_dueDate!.month}/${_dueDate!.day}/${_dueDate!.year}'),
           ),
-          Divider(
-            indent: _dividerIndentSize,
-            endIndent: _dividerIndentSize,
-          ),
+
           Visibility(
             visible: _billType != BillType.utility,
             child: Column(
@@ -360,10 +352,6 @@ class _AddBillScreenState extends State<AddBillScreen> {
                       ],
                     ),
                   ),
-                ),
-                Divider(
-                  indent: _dividerIndentSize,
-                  endIndent: _dividerIndentSize,
                 ),
               ],
             ),
@@ -486,10 +474,7 @@ class _AddBillScreenState extends State<AddBillScreen> {
           //             '${_endDate!.month}/${_endDate!.day}/${_endDate!.year}'),
           //   ),
           // ),
-          // Divider(
-          //   indent: _dividerIndentSize,
-          //   endIndent: _dividerIndentSize,
-          // ),
+
           // ListTile(
           //   title: Text('Notify'),
           //   leading: Icon(Icons.notifications),

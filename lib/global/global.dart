@@ -21,7 +21,7 @@ class _Colors {
     BillCategory.entertainment: Color(0xFFC5C365),
     BillCategory.fitness: Color(0xFF262D38),
     BillCategory.food: Color(0xff534C44),
-    BillCategory.general: Color(0xFF4e4245),
+    BillCategory.general: Color(0xFF748386),
     BillCategory.healthCare: Color(0Xffbfa41a),
     BillCategory.housing: Color.fromARGB(255, 6, 136, 75),
     BillCategory.insurance: Color.fromARGB(255, 167, 120, 220),

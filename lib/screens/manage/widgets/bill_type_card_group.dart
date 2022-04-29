@@ -44,7 +44,7 @@ class _BillTypeCardGroupState extends State<BillTypeCardGroup> {
             0
         ? SizedBox()
         : Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(

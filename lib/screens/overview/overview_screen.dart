@@ -42,7 +42,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
         value: value,
         title: '\$${value.currency}',
         showTitle: false,
-        radius: 60,
+        radius: 40,
         titleStyle: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -114,31 +114,23 @@ class _OverviewScreenState extends State<OverviewScreen> {
             )
           : Column(
               children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      '\$${context.watch<BillProvider>().bills.map((bill) => bill.getMonthlyCost()).reduce((value, element) => value + element).currency}',
-                      style: TextStyle(fontSize: 28),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    '\$${context.watch<BillProvider>().bills.map((bill) => bill.getMonthlyCost()).reduce((value, element) => value + element).currency}',
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 100.0),
-                    child: Stack(
-                      children: [
-                        PieChart(
-                          PieChartData(
-                            sectionsSpace: 0,
-                            centerSpaceRadius: 30,
-                            sections:
-                                _generatePieChartSections(_dateToView.dateTime),
-                          ),
-                        ),
-                        // Center(child: AutoSizeText('\$${242334.0}')),
-                      ],
+                SizedBox(
+                  height: 170,
+                  child: PieChart(
+                    PieChartData(
+                      sectionsSpace: 0,
+                      centerSpaceRadius: 40,
+                      sections: _generatePieChartSections(_dateToView.dateTime),
                     ),
                   ),
                 ),

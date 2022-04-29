@@ -44,93 +44,105 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
       theme: ThemeData.light().copyWith(
-          scaffoldBackgroundColor: Colors.white,
-          cardColor: Colors.white60,
-          appBarTheme: AppBarTheme(
-            centerTitle: false,
-            color: Colors.white,
-            titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
-                  color: Colors.black,
-                ),
-            elevation: 0,
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-          ),
-          dividerColor: Colors.black,
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.black54,
-            showUnselectedLabels: false,
-            showSelectedLabels: false,
-          ),
-          // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
-          floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: Colors.black,
-          ),
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-          listTileTheme: const ListTileThemeData(
-            iconColor: Colors.black,
-          ),
-          popupMenuTheme: PopupMenuThemeData(
-            color: Colors.white,
-          ),
-          chipTheme: ChipThemeData(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.black, width: 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            backgroundColor: Colors.white,
-            selectedColor: Colors.black,
-            labelStyle: TextStyle(color: Colors.black),
-            secondaryLabelStyle: TextStyle(color: Colors.white),
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              primary: Colors.black,
-            ),
-          ),
-          dividerTheme: DividerThemeData(color: Colors.black)),
-      darkTheme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Global.colors.darkIconColor,
+        scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           centerTitle: false,
-          color: Global.colors.darkIconColor,
-          // titleTextStyle: GoogleFonts.barlow(
-          //   textStyle: Theme.of(context).textTheme.headline5,
-          //   fontSize: 28,
-          //   fontWeight: FontWeight.w500,
-          // ),
+          color: Colors.white,
+          titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+                color: Colors.black,
+              ),
           elevation: 0,
           iconTheme: IconThemeData(
-            color: Global.colors.lightIconColorDarker,
+            color: Colors.black,
           ),
         ),
-        dividerColor: Global.colors.lightIconColor,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        dividerColor: Colors.black,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           elevation: 0,
-          backgroundColor: Global.colors.darkIconColor,
-          selectedItemColor: Global.colors.lightIconColor,
-          unselectedItemColor: Global.colors.darkIconColorLighter,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black54,
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
         // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Global.colors.lightIconColor,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.black,
         ),
-        iconTheme: IconThemeData(
-          color: Global.colors.lightIconColor,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.black,
+        ),
+        popupMenuTheme: PopupMenuThemeData(
+          color: Colors.white,
         ),
         chipTheme: ChipThemeData(
-          backgroundColor: Global.colors.darkIconColorLighter,
-          selectedColor: Global.colors.lightIconColorDarker,
-          labelStyle: const TextStyle(color: Colors.black),
-          secondaryLabelStyle: const TextStyle(color: Colors.white),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.black, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: Colors.white,
+          selectedColor: Colors.black,
+          labelStyle: TextStyle(color: Colors.black),
+          secondaryLabelStyle: TextStyle(color: Colors.white),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.black,
+          ),
+        ),
+      ),
+      darkTheme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(
+          centerTitle: false,
+          color: Colors.black,
+          titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+                color: Colors.white,
+              ),
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
+        dividerColor: Colors.white,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          elevation: 0,
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white54,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
+        ),
+        // textTheme: GoogleFonts.mPlusRounded1cTextTheme(),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.white,
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.white,
+        ),
+        popupMenuTheme: const PopupMenuThemeData(
+          color: Colors.black,
+        ),
+        chipTheme: ChipThemeData(
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.white, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: Colors.black,
+          selectedColor: Colors.white,
+          labelStyle: TextStyle(color: Colors.white),
+          secondaryLabelStyle: TextStyle(color: Colors.black),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.white,
+          ),
         ),
       ),
       home: const HomeScreen(),

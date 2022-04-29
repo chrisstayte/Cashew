@@ -23,6 +23,9 @@ class BillInfoCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
             border: Border.all(
               color: context.watch<SettingsProvider>().isDarkMode
                   ? Colors.white
@@ -46,6 +49,10 @@ class BillInfoCard extends StatelessWidget {
               Container(
                 height: 45,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(13.0),
+                    bottomLeft: Radius.circular(13.0),
+                  ),
                   color: context.watch<SettingsProvider>().isDarkMode
                       ? Colors.white
                       : Colors.black,
