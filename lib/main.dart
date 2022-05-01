@@ -1,7 +1,6 @@
 import 'package:cashew/enum/bill_category.dart';
 import 'package:cashew/enum/bill_type.dart';
 import 'package:cashew/enum/occurrence.dart';
-import 'package:cashew/global/global.dart';
 import 'package:cashew/models/bill.dart';
 import 'package:cashew/providers/bill_provider.dart';
 import 'package:cashew/providers/settings_provider.dart';

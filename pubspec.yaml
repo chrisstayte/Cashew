@@ -17,7 +17,6 @@ dependencies:
   shared_preferences: ^2.0.13
   auto_size_text: ^3.0.0
   package_info_plus: ^1.4.2
-  page_transition: ^2.0.5
   path_provider: ^2.0.9
   url_launcher: ^6.0.20
   hive: ^2.1.0
@@ -25,8 +24,6 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   google_fonts: ^2.3.1
   fl_chart: ^0.50.1
-  line_icons: ^2.0.1
-  uuid: ^3.0.6
   jiffy: ^5.0.0
 
 dev_dependencies:

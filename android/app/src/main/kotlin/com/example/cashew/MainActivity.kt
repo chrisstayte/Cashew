@@ -1,4 +1,4 @@
-package com.example.cashew
+package com.chrisstayte.cashew
 
 import io.flutter.embedding.android.FlutterActivity
 

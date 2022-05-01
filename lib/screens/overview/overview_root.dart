@@ -1,11 +1,9 @@
+import 'package:cashew/models/bill.dart';
 import 'package:cashew/screens/bill_screen.dart';
 import 'package:cashew/screens/edit_bill_screen.dart';
 import 'package:cashew/screens/overview/category_detailed_screen.dart';
 import 'package:cashew/screens/overview/overview_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
-import '../../models/bill.dart';
 
 class OverviewRoot extends StatelessWidget {
   const OverviewRoot({Key? key, required this.navigatorKey}) : super(key: key);
