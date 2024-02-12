@@ -20,7 +20,7 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
-  Jiffy _dateToView = Jiffy(DateTime.now());
+  Jiffy _dateToView = Jiffy.parseFromDateTime(DateTime.now());
   late ScrollController _scrollController = ScrollController();
   bool _appBarPriceVisible = false;
 

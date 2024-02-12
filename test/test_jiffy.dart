@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  var jiffy1 = Jiffy("2020-01-02", "yyyy-MM-dd");
+  var jiffy1 = Jiffy.parse("2020-01-02", pattern: "yyyy-MM-dd");
 
-  var jiffy2 = Jiffy("2021-01-01", "yyyy-MM-dd");
-  var jiffy3 = Jiffy("2021-01-30", "yyyy-MM-dd");
+  var jiffy2 = Jiffy.parse("2021-01-01", pattern: "yyyy-MM-dd");
+  var jiffy3 = Jiffy.parse("2021-01-30", pattern: "yyyy-MM-dd");
 
   print(jiffy1.isBetween(jiffy2, jiffy3));
-  print(jiffy1.isSame(jiffy2, Units.DAY));
-  print(jiffy1.isSame(jiffy3, Units.DAY));
+  print(jiffy1.isSame(jiffy2, unit: Unit.day));
+  print(jiffy1.isSame(jiffy3, unit: Unit.day));
 
   Bill bill = Bill(
     title: "Daily 10 Dollars",

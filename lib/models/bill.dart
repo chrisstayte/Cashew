@@ -91,40 +91,45 @@ class Bill extends HiveObject {
       }
     }
 
-    Jiffy jiffy = Jiffy(startDate);
+    Jiffy jiffy = Jiffy.parseFromDateTime(startDate);
 
     // If the bill does repeat
     switch (occurrence!) {
       case Occurrence.day:
         return givenDate;
       case Occurrence.week:
-        while (jiffy.diff(givenDate, Units.DAY) < 0) {
+        while (jiffy.diff(Jiffy.parseFromDateTime(startDate), unit: Unit.day) <
+            0) {
           jiffy = jiffy.add(weeks: 1);
         }
         break;
       case Occurrence.biweekly:
-        while (jiffy.diff(givenDate, Units.DAY) < 0) {
+        while (jiffy.diff(Jiffy.parseFromDateTime(startDate), unit: Unit.day) <
+            0) {
           jiffy = jiffy.add(weeks: 2);
         }
         break;
       case Occurrence.month:
-        while (jiffy.diff(givenDate, Units.DAY) < 0) {
+        while (jiffy.diff(Jiffy.parseFromDateTime(startDate), unit: Unit.day) <
+            0) {
           jiffy = jiffy.add(months: 1);
         }
         break;
       case Occurrence.biannual:
-        while (jiffy.diff(givenDate, Units.DAY) < 0) {
+        while (jiffy.diff(Jiffy.parseFromDateTime(startDate), unit: Unit.day) <
+            0) {
           jiffy = jiffy.add(months: 6);
         }
         break;
       case Occurrence.year:
-        while (jiffy.diff(givenDate, Units.DAY) < 0) {
+        while (jiffy.diff(Jiffy.parseFromDateTime(startDate), unit: Unit.day) <
+            0) {
           jiffy = jiffy.add(years: 1);
         }
         break;
     }
 
-    if (jiffy.diff(givenDate, Units.DAY) == 0) return givenDate;
+    if (jiffy.diff(Jiffy.parseFromDateTime(startDate)) == 0) return givenDate;
     return jiffy.dateTime;
   }
 
@@ -152,27 +157,27 @@ class Bill extends HiveObject {
     if (repeat) {
       Jiffy windowStart;
       if (startDate.year < givenDate.year) {
-        windowStart = Jiffy(givenDate).startOf(Units.MONTH);
+        windowStart = Jiffy.parseFromDateTime(givenDate).startOf(Unit.month);
       } else if (startDate.month < givenDate.month) {
-        windowStart = Jiffy(givenDate).startOf(Units.MONTH);
+        windowStart = Jiffy.parseFromDateTime(givenDate).startOf(Unit.month);
       } else {
-        windowStart = Jiffy(startDate);
+        windowStart = Jiffy.parseFromDateTime(startDate);
       }
 
       Jiffy windowEnd;
       if (endDate == null) {
-        windowEnd = Jiffy(givenDate).endOf(Units.MONTH);
+        windowEnd = Jiffy.parseFromDateTime(givenDate).endOf(Unit.month);
       } else {
         if (endDate!.year > givenDate.year) {
-          windowEnd = Jiffy(givenDate).endOf(Units.MONTH);
+          windowEnd = Jiffy.parseFromDateTime(givenDate).endOf(Unit.month);
         } else if (endDate!.month > givenDate.month) {
-          windowEnd = Jiffy(givenDate).endOf(Units.MONTH);
+          windowEnd = Jiffy.parseFromDateTime(givenDate).endOf(Unit.month);
         } else {
-          windowEnd = Jiffy(endDate!);
+          windowEnd = Jiffy.parseFromDateTime(endDate!);
         }
       }
 
-      Jiffy currentDate = Jiffy(startDate);
+      Jiffy currentDate = Jiffy.parseFromDateTime(startDate);
       List<Jiffy> validBillableDatesThisMonth = <Jiffy>[];
 
       switch (occurrence!) {
