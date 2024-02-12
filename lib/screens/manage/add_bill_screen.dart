@@ -255,34 +255,11 @@ class _AddBillScreenState extends State<AddBillScreen> {
           ListTile(
             onTap: () async {
               DateTime? chosen = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(DateTime.now().year - 30, 1, 1),
-                  lastDate: DateTime(DateTime.now().year + 30, 1, 1),
-                  builder: (context, child) {
-                    return Theme(
-                      data: context.read<SettingsProvider>().isDarkMode
-                          ? ThemeData.dark().copyWith(
-                              colorScheme: const ColorScheme.dark(
-                                primary: Colors.white,
-                                onPrimary: Colors.black,
-                                surface: Colors.black,
-                                onSurface: Colors.white,
-                              ),
-                              dialogBackgroundColor: Colors.black,
-                            )
-                          : ThemeData.light().copyWith(
-                              colorScheme: ColorScheme.light(
-                                primary: Colors.black,
-                                onPrimary: Colors.white,
-                                surface: Colors.black,
-                                onSurface: Colors.black,
-                              ),
-                              dialogBackgroundColor: Colors.white,
-                            ),
-                      child: child!,
-                    );
-                  });
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(DateTime.now().year - 30, 1, 1),
+                lastDate: DateTime(DateTime.now().year + 30, 1, 1),
+              );
               if (chosen != null) {
                 setState(() {
                   _dueDate = chosen;
